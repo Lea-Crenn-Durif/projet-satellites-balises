@@ -11,6 +11,7 @@ out/
 .idea/queries/
 .idea/dataSources/
 .idea/dataSources.local.xml
+.idea/vcs.xml
 
 # Systèmes
 .DS_Store
