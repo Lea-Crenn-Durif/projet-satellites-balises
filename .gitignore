@@ -1,0 +1,20 @@
+# Compilation IntelliJ
+out/
+
+# Réglages personnels d'IntelliJ (on garde le reste de .idea/ : il décrit le projet)
+.idea/workspace.xml
+.idea/shelf/
+.idea/usage.statistics.xml
+.idea/dictionaries/
+.idea/tasks.xml
+.idea/httpRequests/
+.idea/queries/
+.idea/dataSources/
+.idea/dataSources.local.xml
+
+# Systèmes
+.DS_Store
+Thumbs.db
+
+# Sauvegardes de simulation produites pendant les essais (étape 8)
+*.sim
