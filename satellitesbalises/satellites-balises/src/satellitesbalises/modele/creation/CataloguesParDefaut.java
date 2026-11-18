@@ -1,5 +1,6 @@
 package satellitesbalises.modele.creation;
 
+import satellitesbalises.modele.activite.ConditionDuree;
 import satellitesbalises.modele.activite.ConditionMemoirePleine;
 import satellitesbalises.modele.activite.ConditionRemontee;
 import satellitesbalises.modele.deplacement.Deplacement;
@@ -48,6 +49,7 @@ public final class CataloguesParDefaut {
     private static Catalogue<ConditionRemontee> conditionsRemontee() {
         Catalogue<ConditionRemontee> catalogue = new Catalogue<>();
         catalogue.enregistrer("memoirePleine", p -> new ConditionMemoirePleine());
+        catalogue.enregistrer("duree", p -> new ConditionDuree(p.entier("pas", 100)));
         return catalogue;
     }
 }

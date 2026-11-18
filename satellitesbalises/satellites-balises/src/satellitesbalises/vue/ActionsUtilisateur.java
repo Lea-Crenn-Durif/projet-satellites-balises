@@ -1,6 +1,5 @@
 package satellitesbalises.vue;
 
-
 public interface ActionsUtilisateur {
 
     void basculerPause();

@@ -6,7 +6,6 @@ import javax.swing.Timer;
 
 import satellitesbalises.modele.simulation.Simulation;
 
-
 class BoucleTempsReel {
 
     private final Timer minuterie;

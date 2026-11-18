@@ -37,7 +37,7 @@ public class MemoireBalise implements Serializable {
         return mesures.size() >= capacite;
     }
 
-     public List<Mesure> getMesures() {
+    public List<Mesure> getMesures() {
         return Collections.unmodifiableList(mesures);
     }
 

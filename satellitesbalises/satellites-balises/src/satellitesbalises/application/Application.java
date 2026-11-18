@@ -3,6 +3,7 @@ package satellitesbalises.application;
 import javax.swing.SwingUtilities;
 
 import eventHandler.EventHandler;
+import satellitesbalises.modele.activite.ConditionDuree;
 import satellitesbalises.modele.creation.FabriqueEntites;
 import satellitesbalises.modele.deplacement.DeplacementHorizontal;
 import satellitesbalises.modele.deplacement.DeplacementOrbital;
@@ -45,7 +46,6 @@ public final class Application {
         boucle.demarrer();
     }
 
-
     private static void ajouterEntitesDeDemonstration(Simulation simulation) {
         FabriqueEntites fabrique = new FabriqueEntites(GEOMETRIE);
         simulation.ajouter(fabrique.nouveauSatellite("s1").en(new Position(120, 230))
@@ -54,11 +54,11 @@ public final class Application {
                 .avecDeplacement(new DeplacementOrbital(1)).construire());
         simulation.ajouter(fabrique.nouveauSatellite("s3").en(new Position(680, 210))
                 .avecApparence(new Apparence("rouge", 40)).construire());
-        simulation.ajouter(fabrique.nouvelleBalise("b1").en(new Position(100, -80))
+        simulation.ajouter(fabrique.nouvelleBalise("b1").en(new Position(100, -80)).avecVitesseVerticale(3)
                 .avecDeplacement(new DeplacementHorizontal(2))
                 .equipeeDe(new InstrumentSimple("temperature", Grandeur.TEMPERATURE),
                         new InstrumentSimple("salinite", Grandeur.SALINITE)).construire());
-        simulation.ajouter(fabrique.nouvelleBalise("b2").en(new Position(300, -180)).avecMemoire(30)
+        simulation.ajouter(fabrique.nouvelleBalise("b2").en(new Position(300, -180)).avecMemoire(30).avecVitesseVerticale(4)
                 .avecDeplacement(new DeplacementVertical(2, 40, 260))
                 .equipeeDe(new InstrumentCourantometre()).construire());
         simulation.ajouter(fabrique.nouvelleBalise("b3").en(new Position(520, -120)).avecMemoire(200)
@@ -66,6 +66,7 @@ public final class Application {
                 .equipeeDe(new InstrumentSimple("turbidite", Grandeur.TURBIDITE),
                         new InstrumentSimple("temperature", Grandeur.TEMPERATURE))
                 .avecApparence(new Apparence("orange", 40)).construire());
-        simulation.ajouter(fabrique.nouvelleBalise("b4").en(new Position(700, -240)).construire());
+        simulation.ajouter(fabrique.nouvelleBalise("b4").en(new Position(700, -240)).avecVitesseVerticale(3)
+                .remontantQuand(new ConditionDuree(60)).construire());
     }
 }
