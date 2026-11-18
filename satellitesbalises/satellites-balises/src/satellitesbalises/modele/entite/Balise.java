@@ -5,10 +5,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 import satellitesbalises.modele.activite.Activite;
 import satellitesbalises.modele.activite.ActiviteCollecte;
 import satellitesbalises.modele.activite.ConditionRemontee;
+import satellitesbalises.modele.creation.ErreurConfiguration;
+import satellitesbalises.modele.creation.Parametres;
 import satellitesbalises.modele.deplacement.Deplacement;
 import satellitesbalises.modele.evenement.EvenementActiviteModifiee;
 import satellitesbalises.modele.evenement.EvenementMemoireModifiee;
@@ -22,10 +25,12 @@ public class Balise extends Entite {
 
     private static final long serialVersionUID = 1L;
 
+    private static final Set<String> PROPRIETES = Set.of("memoire", "vitesseVerticale");
+
     private final MemoireBalise memoire;
     private final List<Instrument> instruments;
     private ConditionRemontee conditionRemontee;
-    private final double vitesseVerticale;
+    private double vitesseVerticale;
     private Activite activite = new ActiviteCollecte();
     private boolean remonteeDemandee;
 
@@ -114,6 +119,21 @@ public class Balise extends Entite {
         if (memoireModifiee) {
             contexte.getEventHandler().send(new EvenementMemoireModifiee(this));
         }
+    }
+
+    @Override
+    public void configurer(Parametres parametres) {
+        for (String nom : parametres.getValeurs().keySet()) {
+            if (!PROPRIETES.contains(nom)) {
+                throw new ErreurConfiguration("Balise " + getNom() + " : propriété inconnue « " + nom + " »");
+            }
+        }
+        double nouvelleVitesse = parametres.nombre("vitesseVerticale", vitesseVerticale);
+        if (nouvelleVitesse <= 0) {
+            throw new ErreurConfiguration("Balise " + getNom() + " : la vitesse verticale doit être > 0");
+        }
+        memoire.changerCapacite(parametres.entier("memoire", memoire.getCapacite()));
+        vitesseVerticale = nouvelleVitesse;
     }
 
     @Override

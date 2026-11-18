@@ -15,17 +15,24 @@ import javax.swing.WindowConstants;
 import eventHandler.EventHandler;
 import nicellipse.component.NiRectangle;
 import nicellipse.component.NiSpace;
+import satellitesbalises.modele.communication.Transfert;
 import satellitesbalises.modele.evenement.EcouteurEntites;
+import satellitesbalises.modele.evenement.EcouteurSatellites;
+import satellitesbalises.modele.evenement.EcouteurTransferts;
 import satellitesbalises.modele.evenement.EcouteurTemps;
 import satellitesbalises.modele.evenement.EvenementApparenceModifiee;
 import satellitesbalises.modele.evenement.EvenementEntiteAjoutee;
 import satellitesbalises.modele.evenement.EvenementEntiteSupprimee;
 import satellitesbalises.modele.evenement.EvenementPasTermine;
 import satellitesbalises.modele.evenement.EvenementPositionModifiee;
+import satellitesbalises.modele.evenement.EvenementStatutModifie;
+import satellitesbalises.modele.evenement.EvenementTransfertDemarre;
+import satellitesbalises.modele.evenement.EvenementTransfertProgresse;
+import satellitesbalises.modele.evenement.EvenementTransfertTermine;
 import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Position;
 
-public class VueSimulation implements EcouteurTemps, EcouteurEntites {
+public class VueSimulation implements EcouteurTemps, EcouteurEntites, EcouteurSatellites, EcouteurTransferts {
 
     static final String TITRE = "Satellites et balises";
     static final Color COULEUR_CIEL = Color.WHITE;
@@ -39,6 +46,7 @@ public class VueSimulation implements EcouteurTemps, EcouteurEntites {
     private final PanneauObservation panneauObservation = new PanneauObservation();
     private final FabriqueVues fabriqueVues;
     private final Map<String, VueEntite> vuesEntites = new HashMap<>();
+    private final Map<Transfert, VueTransfert> vuesTransferts = new HashMap<>();
 
     public VueSimulation(GeometrieMonde geometrie, ActionsUtilisateur actions) {
         this.geometrie = Objects.requireNonNull(geometrie, "geometrie");
@@ -55,6 +63,10 @@ public class VueSimulation implements EcouteurTemps, EcouteurEntites {
         eventHandler.registerListener(EvenementEntiteSupprimee.class, this);
         eventHandler.registerListener(EvenementPositionModifiee.class, this);
         eventHandler.registerListener(EvenementApparenceModifiee.class, this);
+        eventHandler.registerListener(EvenementStatutModifie.class, this);
+        eventHandler.registerListener(EvenementTransfertDemarre.class, this);
+        eventHandler.registerListener(EvenementTransfertProgresse.class, this);
+        eventHandler.registerListener(EvenementTransfertTermine.class, this);
         panneauObservation.abonner(eventHandler);
     }
 
@@ -73,6 +85,8 @@ public class VueSimulation implements EcouteurTemps, EcouteurEntites {
     @Override
     public void pasTermine(EvenementPasTermine evenement) {
         barre.afficherPas(evenement.getPas());
+        vuesTransferts.values().forEach(VueTransfert::mettreAJour);
+        espace.repaint();
     }
 
     @Override
@@ -102,6 +116,34 @@ public class VueSimulation implements EcouteurTemps, EcouteurEntites {
     public void apparenceModifiee(EvenementApparenceModifiee evenement) {
         vueDe(evenement.getEntite().getNom()).mettreAJourApparence();
         espace.repaint();
+    }
+
+    @Override
+    public void statutModifie(EvenementStatutModifie evenement) {
+        vueDe(evenement.getSatellite().getNom()).mettreAJourStatut();
+        espace.repaint();
+    }
+
+    @Override
+    public void transfertDemarre(EvenementTransfertDemarre evenement) {
+        VueTransfert vue = new VueTransfert(evenement.getTransfert(), convertisseur);
+        vuesTransferts.put(evenement.getTransfert(), vue);
+        vue.afficherDans(espace);
+        espace.repaint();
+    }
+
+    @Override
+    public void transfertProgresse(EvenementTransfertProgresse evenement) {
+        // Le pourcentage est affiché par le panneau d'observation ; les cercles suivent au pas terminé.
+    }
+
+    @Override
+    public void transfertTermine(EvenementTransfertTermine evenement) {
+        VueTransfert vue = vuesTransferts.remove(evenement.getTransfert());
+        if (vue != null) {
+            vue.retirerDe(espace);
+            espace.repaint();
+        }
     }
 
     private VueEntite vueDe(String nom) {
