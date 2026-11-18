@@ -1,3 +1,0 @@
-# JDK du projet : IntelliJ le configure (ou propose de le télécharger) à l'ouverture.
-# Avec SDKMAN sous Linux : « sdk env install » dans ce dossier.
-java=17.0.21-tem

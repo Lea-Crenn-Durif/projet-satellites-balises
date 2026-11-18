@@ -1,4 +1,0 @@
-# Garder les fins de ligne Unix pour les scripts bash et leurs données,
-# sinon Git sous Windows les convertit et bash refuse de les lancer.
-*.sh  text eol=lf
-*.tsv text eol=lf
