@@ -1,0 +1,2 @@
+
+package satellitesbalises.modele.monde;
