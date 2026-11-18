@@ -15,11 +15,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import eventHandler.EventHandler;
+import satellitesbalises.modele.communication.Transfert;
 import satellitesbalises.modele.entite.Balise;
 import satellitesbalises.modele.entite.Satellite;
 import satellitesbalises.modele.entite.VisiteurEntite;
 import satellitesbalises.modele.evenement.EcouteurBalises;
 import satellitesbalises.modele.evenement.EcouteurEntites;
+import satellitesbalises.modele.evenement.EcouteurSatellites;
+import satellitesbalises.modele.evenement.EcouteurTransferts;
 import satellitesbalises.modele.evenement.EvenementActiviteModifiee;
 import satellitesbalises.modele.evenement.EvenementApparenceModifiee;
 import satellitesbalises.modele.evenement.EvenementEntiteAjoutee;
@@ -27,12 +30,17 @@ import satellitesbalises.modele.evenement.EvenementEntiteSupprimee;
 import satellitesbalises.modele.evenement.EvenementEquipementModifie;
 import satellitesbalises.modele.evenement.EvenementMemoireModifiee;
 import satellitesbalises.modele.evenement.EvenementPositionModifiee;
+import satellitesbalises.modele.evenement.EvenementStatutModifie;
+import satellitesbalises.modele.evenement.EvenementTransfertDemarre;
+import satellitesbalises.modele.evenement.EvenementTransfertProgresse;
+import satellitesbalises.modele.evenement.EvenementTransfertTermine;
 
-class PanneauObservation extends JPanel implements EcouteurEntites, EcouteurBalises, VisiteurEntite {
+class PanneauObservation extends JPanel
+        implements EcouteurEntites, EcouteurBalises, EcouteurSatellites, EcouteurTransferts, VisiteurEntite {
 
     private static final long serialVersionUID = 1L;
 
-    private static final int LARGEUR = 300;
+    private static final int LARGEUR = 340;
     private static final Font POLICE_LIGNE = new Font(Font.MONOSPACED, Font.PLAIN, 12);
 
     private static final Map<String, String> ABREVIATIONS = Map.of(
@@ -41,6 +49,7 @@ class PanneauObservation extends JPanel implements EcouteurEntites, EcouteurBali
     private final JPanel lignesSatellites = colonne();
     private final JPanel lignesBalises = colonne();
     private final Map<String, JLabel> lignes = new HashMap<>();
+    private final Map<String, Integer> pourcentages = new HashMap<>();
 
     PanneauObservation() {
         super(new BorderLayout());
@@ -62,6 +71,10 @@ class PanneauObservation extends JPanel implements EcouteurEntites, EcouteurBali
         eventHandler.registerListener(EvenementActiviteModifiee.class, this);
         eventHandler.registerListener(EvenementMemoireModifiee.class, this);
         eventHandler.registerListener(EvenementEquipementModifie.class, this);
+        eventHandler.registerListener(EvenementStatutModifie.class, this);
+        eventHandler.registerListener(EvenementTransfertDemarre.class, this);
+        eventHandler.registerListener(EvenementTransfertProgresse.class, this);
+        eventHandler.registerListener(EvenementTransfertTermine.class, this);
     }
 
     @Override
@@ -106,9 +119,31 @@ class PanneauObservation extends JPanel implements EcouteurEntites, EcouteurBali
     }
 
     @Override
+    public void statutModifie(EvenementStatutModifie evenement) {
+        visiter(evenement.getSatellite());
+    }
+
+    @Override
+    public void transfertDemarre(EvenementTransfertDemarre evenement) {
+        noterAvancement(evenement.getTransfert());
+    }
+
+    @Override
+    public void transfertProgresse(EvenementTransfertProgresse evenement) {
+        noterAvancement(evenement.getTransfert());
+    }
+
+    @Override
+    public void transfertTermine(EvenementTransfertTermine evenement) {
+        pourcentages.remove(evenement.getTransfert().getBalise().getNom());
+        visiter(evenement.getTransfert().getBalise());
+        visiter(evenement.getTransfert().getSatellite());
+    }
+
+    @Override
     public void visiter(Satellite satellite) {
-        String texte = String.format("%-4s %-11s portée %d", satellite.getNom(), satellite.getStatut(),
-                Math.round(satellite.getPortee()));
+        String texte = String.format("%-4s %-12s portée %-3d archive %d", satellite.getNom(), satellite.getStatut(),
+                Math.round(satellite.getPortee()), satellite.getArchive().getNombreMesures());
         ecrire(satellite.getNom(), texte, lignesSatellites);
     }
 
@@ -117,9 +152,17 @@ class PanneauObservation extends JPanel implements EcouteurEntites, EcouteurBali
         String instruments = balise.getInstruments().isEmpty() ? "-"
                 : balise.getInstruments().stream().map(instrument -> ABREVIATIONS.getOrDefault(instrument.getNom(), instrument.getNom()))
                         .collect(Collectors.joining(" "));
-        String texte = String.format("%-4s %-12s %d/%d  %s", balise.getNom(), balise.getActivite().getNom(),
-                balise.getMemoire().getTaille(), balise.getMemoire().getCapacite(), instruments);
+        Integer pourcentage = pourcentages.get(balise.getNom());
+        String transfert = pourcentage == null ? "" : "  " + pourcentage + " %";
+        String texte = String.format("%-4s %-12s %d/%d  %s%s", balise.getNom(), balise.getActivite().getNom(),
+                balise.getMemoire().getTaille(), balise.getMemoire().getCapacite(), instruments, transfert);
         ecrire(balise.getNom(), texte, lignesBalises);
+    }
+
+    private void noterAvancement(Transfert transfert) {
+        pourcentages.put(transfert.getBalise().getNom(), (int) Math.round(100 * transfert.getProgression()));
+        visiter(transfert.getBalise());
+        visiter(transfert.getSatellite());
     }
 
     private void ecrire(String nom, String texte, JPanel section) {

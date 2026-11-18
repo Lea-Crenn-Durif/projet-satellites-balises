@@ -4,6 +4,7 @@ import javax.swing.SwingUtilities;
 
 import eventHandler.EventHandler;
 import satellitesbalises.modele.activite.ConditionDuree;
+import satellitesbalises.modele.commande.CommandeChangerStatut;
 import satellitesbalises.modele.creation.FabriqueEntites;
 import satellitesbalises.modele.deplacement.DeplacementHorizontal;
 import satellitesbalises.modele.deplacement.DeplacementOrbital;
@@ -48,8 +49,8 @@ public final class Application {
 
     private static void ajouterEntitesDeDemonstration(Simulation simulation) {
         FabriqueEntites fabrique = new FabriqueEntites(GEOMETRIE);
-        simulation.ajouter(fabrique.nouveauSatellite("s1").en(new Position(120, 230))
-                .avecDeplacement(new DeplacementOrbital(2)).construire());
+        simulation.ajouter(fabrique.nouveauSatellite("s1").en(new Position(120, 230)).avecDebit(1)
+                .avecDeplacement(new DeplacementOrbital(4)).construire());
         simulation.ajouter(fabrique.nouveauSatellite("s2").en(new Position(400, 260)).avecPortee(40)
                 .avecDeplacement(new DeplacementOrbital(1)).construire());
         simulation.ajouter(fabrique.nouveauSatellite("s3").en(new Position(680, 210))
@@ -68,5 +69,7 @@ public final class Application {
                 .avecApparence(new Apparence("orange", 40)).construire());
         simulation.ajouter(fabrique.nouvelleBalise("b4").en(new Position(700, -240)).avecVitesseVerticale(3)
                 .remontantQuand(new ConditionDuree(60)).construire());
+        simulation.planifier(new CommandeChangerStatut("s2", false), 150);
+        simulation.planifier(new CommandeChangerStatut("s2", true), 300);
     }
 }

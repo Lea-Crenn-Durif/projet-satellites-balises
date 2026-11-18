@@ -3,6 +3,7 @@ package satellitesbalises.modele.entite;
 import java.io.Serializable;
 import java.util.Objects;
 
+import satellitesbalises.modele.creation.Parametres;
 import satellitesbalises.modele.deplacement.Deplacement;
 import satellitesbalises.modele.evenement.EvenementPositionModifiee;
 import satellitesbalises.modele.monde.Position;
@@ -61,6 +62,8 @@ public abstract class Entite implements Serializable {
     }
 
     public abstract void agir(ContexteSimulation contexte);
+
+    public abstract void configurer(Parametres parametres);
 
     public abstract void accepter(VisiteurEntite visiteur);
 

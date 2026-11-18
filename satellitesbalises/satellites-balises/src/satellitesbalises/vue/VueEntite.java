@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.Objects;
 
 import javax.imageio.ImageIO;
+import javax.swing.GrayFilter;
 
 import nicellipse.component.NiImage;
 import nicellipse.component.NiLabel;
@@ -22,14 +23,16 @@ public abstract class VueEntite {
 
     private final Entite entite;
     private final ConvertisseurCoordonnees convertisseur;
-    private final Image imageOriginale;
+    private final Image imageEnCouleur;
+    private Image imageOriginale;
     protected final NiImage icone;
     protected final NiLabel nom = new NiLabel();
 
     protected VueEntite(Entite entite, ConvertisseurCoordonnees convertisseur, String fichierImage) {
         this.entite = Objects.requireNonNull(entite, "entite");
         this.convertisseur = Objects.requireNonNull(convertisseur, "convertisseur");
-        this.imageOriginale = chargerImage(fichierImage);
+        this.imageEnCouleur = chargerImage(fichierImage);
+        this.imageOriginale = imageEnCouleur;
         this.icone = new NiImage(imageOriginale);
         nom.setText(entite.getNom());
         nom.setOpaque(true);
@@ -52,6 +55,16 @@ public abstract class VueEntite {
     }
 
     public void mettreAJourApparence() {
+        appliquerApparence();
+    }
+
+    public void mettreAJourStatut() {
+        // Redéfinie par VueSatellite.
+    }
+
+    protected void griser(boolean grise) {
+        imageOriginale = grise ? GrayFilter.createDisabledImage(imageEnCouleur) : imageEnCouleur;
+        nom.setText(grise ? entite.getNom() + " (HS)" : entite.getNom());
         appliquerApparence();
     }
 
