@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import satellitesbalises.vue.ActionsUtilisateur;
 
-
 class ControleurApplication implements ActionsUtilisateur {
 
     private final BoucleTempsReel boucle;

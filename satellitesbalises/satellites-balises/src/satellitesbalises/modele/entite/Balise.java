@@ -10,6 +10,7 @@ import satellitesbalises.modele.activite.Activite;
 import satellitesbalises.modele.activite.ActiviteCollecte;
 import satellitesbalises.modele.activite.ConditionRemontee;
 import satellitesbalises.modele.deplacement.Deplacement;
+import satellitesbalises.modele.evenement.EvenementActiviteModifiee;
 import satellitesbalises.modele.evenement.EvenementMemoireModifiee;
 import satellitesbalises.modele.mesure.Instrument;
 import satellitesbalises.modele.mesure.MemoireBalise;
@@ -23,9 +24,10 @@ public class Balise extends Entite {
 
     private final MemoireBalise memoire;
     private final List<Instrument> instruments;
-    private final ConditionRemontee conditionRemontee;
+    private ConditionRemontee conditionRemontee;
     private final double vitesseVerticale;
-    private final Activite activite = new ActiviteCollecte();
+    private Activite activite = new ActiviteCollecte();
+    private boolean remonteeDemandee;
 
     public Balise(String nom, Position position, Deplacement deplacement, Apparence apparence,
                   MemoireBalise memoire, List<Instrument> instruments,
@@ -49,12 +51,46 @@ public class Balise extends Entite {
         return conditionRemontee;
     }
 
+    public void changerConditionRemontee(ConditionRemontee nouvelleCondition) {
+        this.conditionRemontee = Objects.requireNonNull(nouvelleCondition, "conditionRemontee");
+    }
+
     public double getVitesseVerticale() {
         return vitesseVerticale;
     }
 
     public Activite getActivite() {
         return activite;
+    }
+
+    public void changerActivite(Activite nouvelleActivite, ContexteSimulation contexte) {
+        activite = Objects.requireNonNull(nouvelleActivite, "activite");
+        remonteeDemandee = false;
+        contexte.getEventHandler().send(new EvenementActiviteModifiee(this));
+    }
+
+    public void demanderRemontee() {
+        remonteeDemandee = true;
+    }
+
+    public boolean doitRemonter(long dureeCollecte) {
+        return remonteeDemandee || conditionRemontee.estRemplie(this, dureeCollecte);
+    }
+
+    public boolean estEnAttente() {
+        return activite.accepteTransmission();
+    }
+
+    public void commencerTransmission(ContexteSimulation contexte) {
+        activite.surTransfertDemarre(this, contexte);
+    }
+
+    public void terminerTransmission(boolean complet, ContexteSimulation contexte) {
+        activite.surTransfertTermine(this, complet, contexte);
+    }
+
+    public List<Mesure> ceder(int nombre) {
+        return memoire.ceder(nombre);
     }
 
     public void equiper(Instrument instrument) {
