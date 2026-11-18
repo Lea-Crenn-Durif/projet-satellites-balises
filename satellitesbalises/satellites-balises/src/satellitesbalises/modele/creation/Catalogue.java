@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-
 public class Catalogue<T> {
 
     private final Map<String, FabriqueParametree<T>> fabriques = new LinkedHashMap<>();
@@ -14,7 +13,6 @@ public class Catalogue<T> {
         fabriques.put(nom, fabrique);
     }
 
-    /** @throws ErreurConfiguration si le nom est inconnu ; le message cite ce nom */
     public T creer(String nom, Parametres parametres) {
         FabriqueParametree<T> fabrique = fabriques.get(nom);
         if (fabrique == null) {

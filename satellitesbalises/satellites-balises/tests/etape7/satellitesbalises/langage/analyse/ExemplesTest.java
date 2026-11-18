@@ -21,7 +21,11 @@ import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Monde;
 import satellitesbalises.modele.simulation.Simulation;
 
-
+/**
+ * Étape 7c — EX-7.10 : tous les programmes du dossier exemples/ s'analysent et s'exécutent
+ * sans erreur dans le monde de référence (800 × 300 × 300), puis tournent 500 pas.
+ * Ajouter un exemple = déposer un fichier .sb : il est testé automatiquement.
+ */
 class ExemplesTest {
 
     @Test

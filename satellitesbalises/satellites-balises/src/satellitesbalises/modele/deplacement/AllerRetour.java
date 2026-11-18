@@ -2,7 +2,6 @@ package satellitesbalises.modele.deplacement;
 
 import java.io.Serializable;
 
-
 final class AllerRetour implements Serializable {
 
     private static final long serialVersionUID = 1L;

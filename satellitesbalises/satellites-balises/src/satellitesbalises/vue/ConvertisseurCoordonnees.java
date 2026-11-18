@@ -6,7 +6,6 @@ import java.util.Objects;
 import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Position;
 
-
 public class ConvertisseurCoordonnees {
 
     private final GeometrieMonde geometrie;

@@ -6,7 +6,6 @@ import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.monde.Zone;
 
-
 public class FabriqueEntites {
 
     private final GeometrieMonde geometrie;
@@ -22,7 +21,6 @@ public class FabriqueEntites {
     public ConstructeurBalise nouvelleBalise(String nom) {
         return new ConstructeurBalise(nom, this);
     }
-
 
     void verifierPlacement(String description, Position position, Zone zoneAttendue) {
         if (position == null) {

@@ -21,7 +21,6 @@ final class Couleurs {
         // Classe utilitaire : pas d'instance.
     }
 
-    /** La couleur de ce nom, ou noir si le nom est inconnu. */
     static Color depuisNom(String nom) {
         return PAR_NOM.getOrDefault(nom, Color.BLACK);
     }

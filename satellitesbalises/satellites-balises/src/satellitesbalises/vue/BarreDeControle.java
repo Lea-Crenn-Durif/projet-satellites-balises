@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
-
 class BarreDeControle extends JPanel {
 
     private static final long serialVersionUID = 1L;

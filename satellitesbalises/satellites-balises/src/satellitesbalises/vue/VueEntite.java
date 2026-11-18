@@ -16,7 +16,6 @@ import nicellipse.component.NiSpace;
 import satellitesbalises.modele.entite.Apparence;
 import satellitesbalises.modele.entite.Entite;
 
-
 public abstract class VueEntite {
 
     private static final Color FOND_DU_NOM = new Color(255, 255, 255, 200);

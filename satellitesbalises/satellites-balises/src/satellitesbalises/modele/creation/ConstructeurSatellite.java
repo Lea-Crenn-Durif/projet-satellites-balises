@@ -7,7 +7,6 @@ import satellitesbalises.modele.entite.Satellite;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.monde.Zone;
 
-
 public class ConstructeurSatellite {
 
     private final String nom;
@@ -48,7 +47,6 @@ public class ConstructeurSatellite {
         return this;
     }
 
-    /** @throws ErreurConfiguration si la position manque, n'est pas dans le ciel, ou si portée ou débit ≤ 0 */
     public Satellite construire() {
         String description = "Satellite " + nom;
         fabrique.verifierPlacement(description, position, Zone.CIEL);

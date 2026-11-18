@@ -7,7 +7,6 @@ import satellitesbalises.modele.entite.Entite;
 import satellitesbalises.modele.entite.Satellite;
 import satellitesbalises.modele.entite.VisiteurEntite;
 
-
 public class FabriqueVues implements VisiteurEntite {
 
     private final ConvertisseurCoordonnees convertisseur;

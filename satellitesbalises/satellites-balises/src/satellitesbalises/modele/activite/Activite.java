@@ -2,8 +2,13 @@ package satellitesbalises.modele.activite;
 
 import java.io.Serializable;
 
+import satellitesbalises.modele.entite.Balise;
+import satellitesbalises.modele.simulation.ContexteSimulation;
+
+
 public interface Activite extends Serializable {
 
-    /** Le nom affiché à l'écran, par exemple « Collecte ». */
     String getNom();
+
+    void agir(Balise balise, ContexteSimulation contexte);
 }

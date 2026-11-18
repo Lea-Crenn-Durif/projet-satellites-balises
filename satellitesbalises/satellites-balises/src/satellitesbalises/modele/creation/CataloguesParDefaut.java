@@ -8,8 +8,10 @@ import satellitesbalises.modele.deplacement.DeplacementImmobile;
 import satellitesbalises.modele.deplacement.DeplacementOrbital;
 import satellitesbalises.modele.deplacement.DeplacementSinusoidal;
 import satellitesbalises.modele.deplacement.DeplacementVertical;
+import satellitesbalises.modele.mesure.Grandeur;
 import satellitesbalises.modele.mesure.Instrument;
-
+import satellitesbalises.modele.mesure.InstrumentCourantometre;
+import satellitesbalises.modele.mesure.InstrumentSimple;
 
 public final class CataloguesParDefaut {
 
@@ -35,7 +37,12 @@ public final class CataloguesParDefaut {
     }
 
     private static Catalogue<Instrument> instruments() {
-        return new Catalogue<>();
+        Catalogue<Instrument> catalogue = new Catalogue<>();
+        catalogue.enregistrer("temperature", p -> new InstrumentSimple("temperature", Grandeur.TEMPERATURE));
+        catalogue.enregistrer("salinite", p -> new InstrumentSimple("salinite", Grandeur.SALINITE));
+        catalogue.enregistrer("courantometre", p -> new InstrumentCourantometre());
+        catalogue.enregistrer("turbidite", p -> new InstrumentSimple("turbidite", Grandeur.TURBIDITE));
+        return catalogue;
     }
 
     private static Catalogue<ConditionRemontee> conditionsRemontee() {

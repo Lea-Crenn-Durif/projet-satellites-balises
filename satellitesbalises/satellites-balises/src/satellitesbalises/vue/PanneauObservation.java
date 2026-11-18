@@ -18,20 +18,25 @@ import eventHandler.EventHandler;
 import satellitesbalises.modele.entite.Balise;
 import satellitesbalises.modele.entite.Satellite;
 import satellitesbalises.modele.entite.VisiteurEntite;
-import satellitesbalises.modele.mesure.Instrument;
+import satellitesbalises.modele.evenement.EcouteurBalises;
 import satellitesbalises.modele.evenement.EcouteurEntites;
+import satellitesbalises.modele.evenement.EvenementActiviteModifiee;
 import satellitesbalises.modele.evenement.EvenementApparenceModifiee;
 import satellitesbalises.modele.evenement.EvenementEntiteAjoutee;
 import satellitesbalises.modele.evenement.EvenementEntiteSupprimee;
+import satellitesbalises.modele.evenement.EvenementEquipementModifie;
+import satellitesbalises.modele.evenement.EvenementMemoireModifiee;
 import satellitesbalises.modele.evenement.EvenementPositionModifiee;
 
-
-class PanneauObservation extends JPanel implements EcouteurEntites, VisiteurEntite {
+class PanneauObservation extends JPanel implements EcouteurEntites, EcouteurBalises, VisiteurEntite {
 
     private static final long serialVersionUID = 1L;
 
     private static final int LARGEUR = 300;
     private static final Font POLICE_LIGNE = new Font(Font.MONOSPACED, Font.PLAIN, 12);
+
+    private static final Map<String, String> ABREVIATIONS = Map.of(
+            "temperature", "T", "salinite", "S", "courantometre", "C", "turbidite", "Tu");
 
     private final JPanel lignesSatellites = colonne();
     private final JPanel lignesBalises = colonne();
@@ -54,6 +59,9 @@ class PanneauObservation extends JPanel implements EcouteurEntites, VisiteurEnti
     void abonner(EventHandler eventHandler) {
         eventHandler.registerListener(EvenementEntiteAjoutee.class, this);
         eventHandler.registerListener(EvenementEntiteSupprimee.class, this);
+        eventHandler.registerListener(EvenementActiviteModifiee.class, this);
+        eventHandler.registerListener(EvenementMemoireModifiee.class, this);
+        eventHandler.registerListener(EvenementEquipementModifie.class, this);
     }
 
     @Override
@@ -83,6 +91,21 @@ class PanneauObservation extends JPanel implements EcouteurEntites, VisiteurEnti
     }
 
     @Override
+    public void activiteModifiee(EvenementActiviteModifiee evenement) {
+        visiter(evenement.getBalise());
+    }
+
+    @Override
+    public void memoireModifiee(EvenementMemoireModifiee evenement) {
+        visiter(evenement.getBalise());
+    }
+
+    @Override
+    public void equipementModifie(EvenementEquipementModifie evenement) {
+        visiter(evenement.getBalise());
+    }
+
+    @Override
     public void visiter(Satellite satellite) {
         String texte = String.format("%-4s %-11s portée %d", satellite.getNom(), satellite.getStatut(),
                 Math.round(satellite.getPortee()));
@@ -92,7 +115,8 @@ class PanneauObservation extends JPanel implements EcouteurEntites, VisiteurEnti
     @Override
     public void visiter(Balise balise) {
         String instruments = balise.getInstruments().isEmpty() ? "-"
-                : balise.getInstruments().stream().map(Instrument::getNom).collect(Collectors.joining(" "));
+                : balise.getInstruments().stream().map(instrument -> ABREVIATIONS.getOrDefault(instrument.getNom(), instrument.getNom()))
+                        .collect(Collectors.joining(" "));
         String texte = String.format("%-4s %-12s %d/%d  %s", balise.getNom(), balise.getActivite().getNom(),
                 balise.getMemoire().getTaille(), balise.getMemoire().getCapacite(), instruments);
         ecrire(balise.getNom(), texte, lignesBalises);

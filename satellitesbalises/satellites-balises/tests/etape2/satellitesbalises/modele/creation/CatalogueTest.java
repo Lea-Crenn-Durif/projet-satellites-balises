@@ -10,7 +10,10 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-
+/**
+ * Étape 2 — EX-2.7, EX-2.8 : un catalogue associe un nom à une petite fabrique.
+ * Le catalogue est générique : on le teste ici avec de simples textes.
+ */
 class CatalogueTest {
 
     private static final Parametres AUCUN_PARAMETRE = new Parametres(Map.of());

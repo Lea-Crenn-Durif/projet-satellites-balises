@@ -5,7 +5,6 @@ import java.util.Objects;
 
 import satellitesbalises.modele.commande.CommandeSimulation;
 
-
 public final class CommandePlanifiee implements Comparable<CommandePlanifiee>, Serializable {
 
     private static final long serialVersionUID = 1L;

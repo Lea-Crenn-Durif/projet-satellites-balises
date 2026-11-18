@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+/** Étape 1 — EX-1.1, EX-1.2, EX-1.3 : le monde coupé en ciel et mer. */
 class GeometrieMondeTest {
 
     /** Monde de 200 de large, 100 de ciel, 80 de mer. */

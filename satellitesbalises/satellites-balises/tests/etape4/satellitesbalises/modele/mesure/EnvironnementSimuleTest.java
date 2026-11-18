@@ -9,7 +9,11 @@ import org.junit.jupiter.api.Test;
 import satellitesbalises.modele.creation.ErreurConfiguration;
 import satellitesbalises.modele.monde.Position;
 
-
+/**
+ * Étape 4 — EX-4.7 : un environnement partagé et déterministe.
+ * Formule d'un champ : valeurSurface + gradientProfondeur × profondeur (profondeur = −y)
+ * + amplitude × ondulation(x, pas), l'ondulation restant entre −1 et 1.
+ */
 class EnvironnementSimuleTest {
 
     @Test

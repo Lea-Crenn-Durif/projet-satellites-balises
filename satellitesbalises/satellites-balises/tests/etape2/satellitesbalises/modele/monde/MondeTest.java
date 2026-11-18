@@ -12,6 +12,7 @@ import satellitesbalises.modele.creation.FabriqueEntites;
 import satellitesbalises.modele.entite.Balise;
 import satellitesbalises.modele.entite.Satellite;
 
+/** Étape 2 — EX-2.4, EX-2.5, EX-2.6 : le monde range et retrouve les entités par leur nom. */
 class MondeTest {
 
     private final GeometrieMonde geometrie = new GeometrieMonde(200, 100, 80);

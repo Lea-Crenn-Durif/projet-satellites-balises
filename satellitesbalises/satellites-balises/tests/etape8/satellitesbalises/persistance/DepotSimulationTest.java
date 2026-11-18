@@ -41,7 +41,13 @@ import satellitesbalises.modele.monde.Monde;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.simulation.Simulation;
 
-
+/**
+ * Étape 8 — EX-8.1 à EX-8.7 : sauvegarder une simulation, tout arrêter, la reprendre à l'identique.
+ *
+ * <p>Outil central : l'« empreinte » d'une simulation, un texte qui résume tout son état visible
+ * (pas, positions, activités, mémoires, statuts, archives, transferts). Deux simulations dans
+ * le même état ont la même empreinte.</p>
+ */
 class DepotSimulationTest {
 
     @TempDir

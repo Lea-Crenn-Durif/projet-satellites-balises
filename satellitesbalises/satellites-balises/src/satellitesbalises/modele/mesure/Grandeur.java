@@ -3,10 +3,15 @@ package satellitesbalises.modele.mesure;
 import java.io.Serializable;
 import java.util.Objects;
 
-
 public final class Grandeur implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    public static final Grandeur TEMPERATURE = new Grandeur("temperature", "°C");
+    public static final Grandeur SALINITE = new Grandeur("salinite", "PSU");
+    public static final Grandeur TURBIDITE = new Grandeur("turbidite", "NTU");
+    public static final Grandeur VITESSE_COURANT = new Grandeur("vitesseCourant", "m/s");
+    public static final Grandeur DIRECTION_COURANT = new Grandeur("directionCourant", "°");
 
     private final String nom;
     private final String unite;

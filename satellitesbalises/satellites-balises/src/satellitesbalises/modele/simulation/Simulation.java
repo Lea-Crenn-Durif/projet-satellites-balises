@@ -16,7 +16,6 @@ import satellitesbalises.modele.evenement.EvenementPasTermine;
 import satellitesbalises.modele.mesure.Environnement;
 import satellitesbalises.modele.monde.Monde;
 
-
 public class Simulation implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,12 +33,10 @@ public class Simulation implements Serializable {
         this.eventHandler = Objects.requireNonNull(eventHandler, "eventHandler");
     }
 
-
     public void ajouter(Satellite satellite) {
         monde.ajouter(satellite);
         envoyer(new EvenementEntiteAjoutee(satellite));
     }
-
 
     public void ajouter(Balise balise) {
         monde.ajouter(balise);
@@ -49,7 +46,6 @@ public class Simulation implements Serializable {
     public void supprimer(String nom) {
         monde.retirer(nom).ifPresent(entite -> envoyer(new EvenementEntiteSupprimee(entite)));
     }
-
 
     public void planifier(CommandeSimulation commande, long pas) {
         Objects.requireNonNull(commande, "commande");

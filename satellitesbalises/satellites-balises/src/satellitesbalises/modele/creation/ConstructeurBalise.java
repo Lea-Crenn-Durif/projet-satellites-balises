@@ -15,7 +15,6 @@ import satellitesbalises.modele.mesure.MemoireBalise;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.monde.Zone;
 
-
 public class ConstructeurBalise {
 
     private final String nom;

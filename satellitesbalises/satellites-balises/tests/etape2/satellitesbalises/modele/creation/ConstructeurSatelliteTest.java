@@ -14,7 +14,10 @@ import satellitesbalises.modele.entite.Satellite;
 import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Position;
 
-
+/**
+ * Étape 2 — EX-2.1, EX-2.3, EX-2.3b, EX-2.3c : construire un satellite avec un monteur.
+ * Valeurs par défaut attendues : déplacement immobile, portée 30, débit 2, apparence par défaut.
+ */
 class ConstructeurSatelliteTest {
 
     private final FabriqueEntites fabrique = new FabriqueEntites(new GeometrieMonde(200, 100, 80));

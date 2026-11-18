@@ -13,6 +13,7 @@ import satellitesbalises.modele.creation.Catalogue;
 import satellitesbalises.modele.creation.Parametres;
 import satellitesbalises.modele.monde.Position;
 
+/** Étape 3 — EX-2.7 complété : tous les déplacements sont au catalogue, avec leurs paramètres. */
 class CataloguesDeplacementsTest {
 
     private final Catalogue<Deplacement> deplacements = CataloguesParDefaut.creer().getDeplacements();

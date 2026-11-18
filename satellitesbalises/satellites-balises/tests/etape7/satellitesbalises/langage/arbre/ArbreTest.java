@@ -4,7 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-
+/**
+ * Étape 7a — EX-7.1 : l'arbre abstrait existe seul, sans ANTLR ni modèle.
+ * Les classes de l'arbre redéfinissent equals : deux arbres identiques sont égaux.
+ */
 class ArbreTest {
 
     @Test

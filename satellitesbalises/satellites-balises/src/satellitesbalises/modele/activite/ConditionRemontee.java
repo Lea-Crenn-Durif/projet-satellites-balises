@@ -7,9 +7,5 @@ import satellitesbalises.modele.entite.Balise;
 @FunctionalInterface
 public interface ConditionRemontee extends Serializable {
 
-    /**
-     * @param balise        la balise en collecte
-     * @param dureeCollecte depuis combien de pas elle collecte (le pas courant compte)
-     */
     boolean estRemplie(Balise balise, long dureeCollecte);
 }

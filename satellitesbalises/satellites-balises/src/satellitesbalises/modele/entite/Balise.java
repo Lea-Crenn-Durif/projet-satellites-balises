@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import satellitesbalises.modele.activite.Activite;
 import satellitesbalises.modele.activite.ActiviteCollecte;
 import satellitesbalises.modele.activite.ConditionRemontee;
 import satellitesbalises.modele.deplacement.Deplacement;
+import satellitesbalises.modele.evenement.EvenementMemoireModifiee;
 import satellitesbalises.modele.mesure.Instrument;
 import satellitesbalises.modele.mesure.MemoireBalise;
+import satellitesbalises.modele.mesure.Mesure;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.simulation.ContexteSimulation;
 
@@ -54,9 +57,32 @@ public class Balise extends Entite {
         return activite;
     }
 
+    public void equiper(Instrument instrument) {
+        instruments.add(Objects.requireNonNull(instrument, "instrument"));
+    }
+
+    public Optional<Instrument> desequiper(String nomInstrument) {
+        Optional<Instrument> instrument = instruments.stream()
+                .filter(candidat -> candidat.getNom().equals(nomInstrument))
+                .findFirst();
+        instrument.ifPresent(instruments::remove);
+        return instrument;
+    }
+
+    public void mesurer(ContexteSimulation contexte) {
+        boolean memoireModifiee = false;
+        for (Instrument instrument : instruments) {
+            Mesure mesure = instrument.mesurer(getPosition(), contexte);
+            memoireModifiee |= memoire.stocker(mesure);
+        }
+        if (memoireModifiee) {
+            contexte.getEventHandler().send(new EvenementMemoireModifiee(this));
+        }
+    }
+
     @Override
     public void agir(ContexteSimulation contexte) {
-        seDeplacer(contexte);
+        activite.agir(this, contexte);
     }
 
     @Override

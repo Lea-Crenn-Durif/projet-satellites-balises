@@ -13,7 +13,6 @@ import satellitesbalises.modele.entite.Balise;
 import satellitesbalises.modele.entite.Entite;
 import satellitesbalises.modele.entite.Satellite;
 
-
 public class Monde implements Serializable {
 
     private static final long serialVersionUID = 1L;

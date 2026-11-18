@@ -25,7 +25,6 @@ import satellitesbalises.modele.evenement.EvenementPositionModifiee;
 import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Position;
 
-
 public class VueSimulation implements EcouteurTemps, EcouteurEntites {
 
     static final String TITRE = "Satellites et balises";
@@ -50,7 +49,6 @@ public class VueSimulation implements EcouteurTemps, EcouteurEntites {
         dessinerDecor();
     }
 
-    /** Abonne la vue aux événements qu'elle affiche. */
     public void abonner(EventHandler eventHandler) {
         eventHandler.registerListener(EvenementPasTermine.class, this);
         eventHandler.registerListener(EvenementEntiteAjoutee.class, this);
@@ -60,7 +58,6 @@ public class VueSimulation implements EcouteurTemps, EcouteurEntites {
         panneauObservation.abonner(eventHandler);
     }
 
-    /** Ouvre la fenêtre. À appeler sur le fil d'affichage Swing. */
     public void ouvrir() {
         JFrame fenetre = new JFrame(TITRE);
         fenetre.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

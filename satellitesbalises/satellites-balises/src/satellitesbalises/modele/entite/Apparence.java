@@ -3,7 +3,6 @@ package satellitesbalises.modele.entite;
 import java.io.Serializable;
 import java.util.Objects;
 
-
 public final class Apparence implements Serializable {
 
     private static final long serialVersionUID = 1L;

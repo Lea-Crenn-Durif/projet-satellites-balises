@@ -12,8 +12,10 @@ import org.junit.jupiter.api.Test;
 import satellitesbalises.modele.creation.ErreurConfiguration;
 import satellitesbalises.modele.monde.Position;
 
+/** Étape 4 — EX-4.5, EX-4.6 (et EX-6.12 pour la capacité) : une mémoire de capacité limitée. */
 class MemoireBaliseTest {
 
+    /** Mesure repérable par son numéro de pas. */
     private static Mesure mesure(long pas) {
         return new Mesure("temperature", pas, new Position(0, -10), List.of(new ValeurMesuree(Grandeur.TEMPERATURE, 12)));
     }

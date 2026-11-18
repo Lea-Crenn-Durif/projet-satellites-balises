@@ -5,7 +5,6 @@ import satellitesbalises.modele.deplacement.Deplacement;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.simulation.ContexteSimulation;
 
-
 public class Satellite extends Entite {
 
     private static final long serialVersionUID = 1L;

@@ -4,7 +4,6 @@ import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.simulation.ContexteSimulation;
 
-
 public class DeplacementSinusoidal implements Deplacement {
 
     private static final long serialVersionUID = 1L;

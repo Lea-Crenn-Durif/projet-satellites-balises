@@ -16,6 +16,7 @@ import satellitesbalises.modele.mesure.ValeurMesuree;
 import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Position;
 
+/** Étape 6 — EX-6.1, EX-6.9, EX-6.11 : statut, portée et archive d'un satellite. */
 class SatelliteTest {
 
     private final FabriqueEntites fabrique = new FabriqueEntites(new GeometrieMonde(200, 100, 80));

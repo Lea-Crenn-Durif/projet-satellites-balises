@@ -13,7 +13,11 @@ import org.junit.jupiter.params.provider.MethodSource;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.monde.Zone;
 
-
+/**
+ * Étape 3 — EX-3.8 : une balise ne sort jamais de la mer, un satellite jamais du ciel.
+ * Un même test, rejoué pour chaque stratégie (test paramétré) pendant 1000 pas.
+ * Ajouter une nouvelle stratégie = ajouter une ligne dans la source de données.
+ */
 class DeplacementsDansLeurZoneTest {
 
     static Stream<Deplacement> deplacementsDeBalise() {

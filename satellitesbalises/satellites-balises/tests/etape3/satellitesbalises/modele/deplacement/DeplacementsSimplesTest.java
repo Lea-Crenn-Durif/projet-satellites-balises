@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import satellitesbalises.modele.monde.Position;
 
+/** Étape 3 — EX-3.4, EX-3.5, EX-3.6, EX-3.7 : immobile, géostationnaire et orbital. */
 class DeplacementsSimplesTest {
 
     // ---------- EX-3.4 et EX-3.7 ----------

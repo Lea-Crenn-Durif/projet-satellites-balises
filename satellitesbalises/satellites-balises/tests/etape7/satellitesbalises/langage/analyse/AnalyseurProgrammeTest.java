@@ -32,7 +32,11 @@ import satellitesbalises.langage.arbre.Programme;
 import satellitesbalises.langage.arbre.ProgrammesExemples;
 import satellitesbalises.langage.arbre.TypeEntite;
 
-
+/**
+ * Étape 7c — EX-7.5 et la syntaxe concrète : du texte à l'arbre abstrait.
+ * Syntaxe de référence : section 9 du dossier de conception et dossier exemples/.
+ * Si la grammaire finale diffère, adapter ces tests EN MÊME TEMPS que la grammaire.
+ */
 class AnalyseurProgrammeTest {
 
     private final AnalyseurProgramme analyseur = new AnalyseurProgramme();

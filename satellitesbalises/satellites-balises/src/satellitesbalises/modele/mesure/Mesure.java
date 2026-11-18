@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import satellitesbalises.modele.monde.Position;
 
-
 public final class Mesure implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,6 +36,16 @@ public final class Mesure implements Serializable {
 
     public List<ValeurMesuree> getValeurs() {
         return valeurs;
+    }
+
+    public double valeurDe(Grandeur grandeur) {
+        for (ValeurMesuree valeur : valeurs) {
+            if (valeur.getGrandeur().equals(grandeur)) {
+                return valeur.getValeur();
+            }
+        }
+        throw new IllegalArgumentException("La mesure " + nomInstrument + " ne contient pas « "
+                + grandeur.getNom() + " »");
     }
 
     @Override

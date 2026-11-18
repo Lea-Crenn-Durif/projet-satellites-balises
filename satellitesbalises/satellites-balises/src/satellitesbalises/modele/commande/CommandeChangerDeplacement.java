@@ -8,7 +8,6 @@ import satellitesbalises.modele.entite.Entite;
 import satellitesbalises.modele.evenement.EvenementCommandeIgnoree;
 import satellitesbalises.modele.simulation.Simulation;
 
-
 public class CommandeChangerDeplacement implements CommandeSimulation {
 
     private static final long serialVersionUID = 1L;

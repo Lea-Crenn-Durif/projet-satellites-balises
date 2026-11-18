@@ -17,6 +17,13 @@ import satellitesbalises.modele.mesure.Environnement;
 import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Monde;
 
+/**
+ * Étape 1 — EX-1.4, EX-1.5, EX-1.7 : le temps avance par pas, les commandes datées.
+ *
+ * <p>Règle testée : une commande planifiée au pas p est exécutée au début du pas
+ * qui porte le numéro p (celui qui fait passer pasCourant à p), avant que les
+ * entités n'agissent.</p>
+ */
 class SimulationTempsTest {
 
     /** Environnement neutre : l'étape 1 ne mesure rien. */

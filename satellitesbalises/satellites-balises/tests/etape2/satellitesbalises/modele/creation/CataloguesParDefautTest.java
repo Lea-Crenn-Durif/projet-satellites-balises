@@ -10,7 +10,11 @@ import org.junit.jupiter.api.Test;
 import satellitesbalises.modele.activite.ConditionMemoirePleine;
 import satellitesbalises.modele.deplacement.DeplacementImmobile;
 
-
+/**
+ * Étape 2 — EX-2.7 : les catalogues livrés avec le projet.
+ * À l'étape 2, seuls "immobile" et "memoirePleine" existent ; les autres noms
+ * sont vérifiés aux étapes 3, 4 et 5 (CataloguesCompletsTest).
+ */
 class CataloguesParDefautTest {
 
     private final Catalogues catalogues = CataloguesParDefaut.creer();

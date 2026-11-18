@@ -1,5 +1,6 @@
 package satellitesbalises.modele.communication;
 
+
 public enum StatutSatellite {
     DISPONIBLE,
     OCCUPE,

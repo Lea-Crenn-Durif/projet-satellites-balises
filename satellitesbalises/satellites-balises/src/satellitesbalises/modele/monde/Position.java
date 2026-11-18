@@ -3,7 +3,6 @@ package satellitesbalises.modele.monde;
 import java.io.Serializable;
 import java.util.Objects;
 
-
 public final class Position implements Serializable {
 
     private static final long serialVersionUID = 1L;

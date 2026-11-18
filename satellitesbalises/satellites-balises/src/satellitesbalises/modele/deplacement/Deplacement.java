@@ -5,7 +5,6 @@ import java.io.Serializable;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.simulation.ContexteSimulation;
 
-
 @FunctionalInterface
 public interface Deplacement extends Serializable {
 

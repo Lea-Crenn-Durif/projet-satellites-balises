@@ -8,7 +8,6 @@ import satellitesbalises.modele.evenement.EvenementPositionModifiee;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.simulation.ContexteSimulation;
 
-
 public abstract class Entite implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,7 +51,6 @@ public abstract class Entite implements Serializable {
     public void seDeplacer(ContexteSimulation contexte) {
         placer(deplacement.prochainePosition(position, contexte), contexte);
     }
-
 
     public void placer(Position nouvellePosition, ContexteSimulation contexte) {
         if (nouvellePosition.equals(position)) {

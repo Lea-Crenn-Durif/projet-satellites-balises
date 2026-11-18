@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import satellitesbalises.modele.monde.Position;
 
-
 @FunctionalInterface
 public interface Environnement extends Serializable {
 

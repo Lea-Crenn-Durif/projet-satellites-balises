@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/** Étape 1 — Position, valeur immuable du repère du modèle. */
 class PositionTest {
 
     @Test
