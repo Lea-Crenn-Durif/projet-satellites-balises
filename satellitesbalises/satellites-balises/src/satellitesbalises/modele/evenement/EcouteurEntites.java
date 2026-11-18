@@ -1,6 +1,5 @@
 package satellitesbalises.modele.evenement;
 
-/** Est prévenu de la vie des entités : arrivée, départ, déplacement, changement d'apparence. */
 public interface EcouteurEntites {
 
     void entiteAjoutee(EvenementEntiteAjoutee evenement);

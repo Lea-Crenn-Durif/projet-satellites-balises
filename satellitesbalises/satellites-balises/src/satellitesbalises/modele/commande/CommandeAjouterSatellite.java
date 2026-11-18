@@ -7,7 +7,6 @@ import satellitesbalises.modele.entite.Satellite;
 import satellitesbalises.modele.evenement.EvenementCommandeIgnoree;
 import satellitesbalises.modele.simulation.Simulation;
 
-/** Ajoute un satellite au monde. Si son nom est déjà pris, la commande est ignorée et on le signale. */
 public class CommandeAjouterSatellite implements CommandeSimulation {
 
     private static final long serialVersionUID = 1L;

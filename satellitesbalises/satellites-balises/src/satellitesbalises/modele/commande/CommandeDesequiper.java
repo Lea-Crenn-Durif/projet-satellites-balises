@@ -8,10 +8,6 @@ import satellitesbalises.modele.evenement.EvenementCommandeIgnoree;
 import satellitesbalises.modele.evenement.EvenementEquipementModifie;
 import satellitesbalises.modele.simulation.Simulation;
 
-/**
- * Retire à une balise l'instrument de ce nom et l'annonce (EX-4.1, EX-4.9).
- * Balise inconnue, ou instrument absent : commande ignorée et signalée.
- */
 public class CommandeDesequiper implements CommandeSimulation {
 
     private static final long serialVersionUID = 1L;

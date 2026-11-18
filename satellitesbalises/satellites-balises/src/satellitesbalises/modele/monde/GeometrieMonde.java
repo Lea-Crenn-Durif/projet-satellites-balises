@@ -3,29 +3,16 @@ package satellitesbalises.modele.monde;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * Les dimensions du monde (EX-1.1 à EX-1.3) : un rectangle de largeur donnée,
- * avec le ciel au-dessus de la surface et la mer en dessous.
- *
- * <p>x va de 0 à largeur ; y va de −profondeurMer (le fond) à +hauteurCiel (le haut du ciel).
- * Les dimensions ne changent jamais une fois le monde créé.</p>
- */
 public final class GeometrieMonde implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /** Ordonnée de la surface de la mer. */
     public static final double NIVEAU_SURFACE = 0;
 
     private final double largeur;
     private final double hauteurCiel;
     private final double profondeurMer;
 
-    /**
-     * Crée un monde aux dimensions données (EX-1.1).
-     *
-     * @throws IllegalArgumentException si une dimension est nulle ou négative
-     */
     public GeometrieMonde(double largeur, double hauteurCiel, double profondeurMer) {
         verifierStrictementPositive("largeur", largeur);
         verifierStrictementPositive("hauteurCiel", hauteurCiel);
@@ -47,12 +34,10 @@ public final class GeometrieMonde implements Serializable {
         return profondeurMer;
     }
 
-    /** CIEL au-dessus de la surface, MER à la surface et en dessous (EX-1.2). */
     public Zone zoneDe(Position position) {
         return position.getY() > NIVEAU_SURFACE ? Zone.CIEL : Zone.MER;
     }
 
-    /** Vrai si la position est dans le rectangle du monde, bords compris (EX-1.3). */
     public boolean contient(Position position) {
         return entre(position.getX(), 0, largeur) && entre(position.getY(), -profondeurMer, hauteurCiel);
     }

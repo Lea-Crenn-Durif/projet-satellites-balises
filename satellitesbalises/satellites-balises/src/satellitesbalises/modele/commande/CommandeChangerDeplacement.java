@@ -8,10 +8,6 @@ import satellitesbalises.modele.entite.Entite;
 import satellitesbalises.modele.evenement.EvenementCommandeIgnoree;
 import satellitesbalises.modele.simulation.Simulation;
 
-/**
- * Change le déplacement d'une entité ; il s'applique dès le pas où la commande s'exécute (EX-3.9).
- * Entité inconnue : commande ignorée et signalée.
- */
 public class CommandeChangerDeplacement implements CommandeSimulation {
 
     private static final long serialVersionUID = 1L;

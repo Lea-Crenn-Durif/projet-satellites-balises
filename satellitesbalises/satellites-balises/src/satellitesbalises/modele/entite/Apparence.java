@@ -3,12 +3,6 @@ package satellitesbalises.modele.entite;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * Comment dessiner une entité (EX-2.9) : une couleur (en toutes lettres) et une taille en pixels.
- *
- * <p>Le modèle ne fait que la ranger : c'est la vue qui l'interprète. Elle est sauvegardée
- * avec le reste du modèle.</p>
- */
 public final class Apparence implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -23,7 +17,6 @@ public final class Apparence implements Serializable {
         this.taille = taille;
     }
 
-    /** Couleur « noir », taille 32 pixels. */
     public static Apparence parDefaut() {
         return PAR_DEFAUT;
     }

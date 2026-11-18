@@ -28,13 +28,6 @@ import satellitesbalises.modele.evenement.EvenementEquipementModifie;
 import satellitesbalises.modele.evenement.EvenementMemoireModifiee;
 import satellitesbalises.modele.evenement.EvenementPositionModifiee;
 
-/**
- * La colonne de gauche (EX-2.11) : une ligne par entité, avec ce qu'on ne peut pas dessiner
- * dans le monde (statut, portée, activité, mémoire, instruments…).
- *
- * <p>C'est un abonné de plus à l'EventHandler (décision D6) : l'ajouter n'a modifié aucune classe
- * du modèle. Il est aussi visiteur d'entités, pour écrire la bonne ligne sans {@code instanceof}.</p>
- */
 class PanneauObservation extends JPanel implements EcouteurEntites, EcouteurBalises, VisiteurEntite {
 
     private static final long serialVersionUID = 1L;
@@ -42,7 +35,6 @@ class PanneauObservation extends JPanel implements EcouteurEntites, EcouteurBali
     private static final int LARGEUR = 300;
     private static final Font POLICE_LIGNE = new Font(Font.MONOSPACED, Font.PLAIN, 12);
 
-    /** Abréviations des instruments connus ; un instrument inconnu s'affiche sous son nom complet. */
     private static final Map<String, String> ABREVIATIONS = Map.of(
             "temperature", "T", "salinite", "S", "courantometre", "C", "turbidite", "Tu");
 
@@ -113,7 +105,6 @@ class PanneauObservation extends JPanel implements EcouteurEntites, EcouteurBali
         visiter(evenement.getBalise());
     }
 
-    /** Ligne d'un satellite, par exemple « s1  DISPONIBLE  portée 30 ». */
     @Override
     public void visiter(Satellite satellite) {
         String texte = String.format("%-4s %-11s portée %d", satellite.getNom(), satellite.getStatut(),
@@ -121,7 +112,6 @@ class PanneauObservation extends JPanel implements EcouteurEntites, EcouteurBali
         ecrire(satellite.getNom(), texte, lignesSatellites);
     }
 
-    /** Ligne d'une balise, par exemple « b1  Collecte  12/50  T S ». */
     @Override
     public void visiter(Balise balise) {
         String instruments = balise.getInstruments().isEmpty() ? "-"
@@ -132,7 +122,6 @@ class PanneauObservation extends JPanel implements EcouteurEntites, EcouteurBali
         ecrire(balise.getNom(), texte, lignesBalises);
     }
 
-    /** Crée la ligne de l'entité si elle n'existe pas encore, puis remplace son texte. */
     private void ecrire(String nom, String texte, JPanel section) {
         JLabel ligne = lignes.computeIfAbsent(nom, inconnu -> {
             JLabel nouvelle = new JLabel();

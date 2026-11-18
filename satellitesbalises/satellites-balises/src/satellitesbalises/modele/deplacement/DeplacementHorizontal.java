@@ -3,10 +3,6 @@ package satellitesbalises.modele.deplacement;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.simulation.ContexteSimulation;
 
-/**
- * Balise : avance horizontalement de « vitesse » par pas, à profondeur constante (EX-3.1).
- * Elle part vers la droite et fait demi-tour au bord du monde.
- */
 public class DeplacementHorizontal implements Deplacement {
 
     private static final long serialVersionUID = 1L;

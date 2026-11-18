@@ -7,12 +7,6 @@ import satellitesbalises.modele.entite.Satellite;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.monde.Zone;
 
-/**
- * Monteur de satellite (EX-2.1, EX-2.3, EX-2.3b, EX-2.3c) : on règle ce qu'on veut, dans l'ordre
- * qu'on veut, puis {@link #construire()} vérifie tout et crée le satellite.
- *
- * <p>Seule la position est obligatoire. Par défaut : immobile, portée 30, débit 2, apparence par défaut.</p>
- */
 public class ConstructeurSatellite {
 
     private final String nom;
@@ -53,7 +47,6 @@ public class ConstructeurSatellite {
         return this;
     }
 
-    /** @throws ErreurConfiguration si la position manque, n'est pas dans le ciel, ou si portée ou débit ≤ 0 */
     public Satellite construire() {
         String description = "Satellite " + nom;
         fabrique.verifierPlacement(description, position, Zone.CIEL);

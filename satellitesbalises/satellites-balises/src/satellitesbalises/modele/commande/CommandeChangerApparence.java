@@ -9,7 +9,6 @@ import satellitesbalises.modele.evenement.EvenementApparenceModifiee;
 import satellitesbalises.modele.evenement.EvenementCommandeIgnoree;
 import satellitesbalises.modele.simulation.Simulation;
 
-/** Change l'apparence d'une entité et l'annonce (EX-2.9). Entité inconnue : commande ignorée et signalée. */
 public class CommandeChangerApparence implements CommandeSimulation {
 
     private static final long serialVersionUID = 1L;

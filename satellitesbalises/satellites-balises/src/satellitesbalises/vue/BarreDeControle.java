@@ -8,10 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
-/**
- * La barre du haut de la fenêtre (EX-1.10) : le numéro du pas, le bouton Pause / Reprendre
- * et le réglage de la vitesse.
- */
 class BarreDeControle extends JPanel {
 
     private static final long serialVersionUID = 1L;

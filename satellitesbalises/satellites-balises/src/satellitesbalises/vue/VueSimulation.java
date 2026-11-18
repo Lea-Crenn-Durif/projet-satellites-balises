@@ -25,14 +25,6 @@ import satellitesbalises.modele.evenement.EvenementPositionModifiee;
 import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Position;
 
-/**
- * La fenêtre de l'application : la barre de contrôle en haut, le panneau d'observation à gauche,
- * le monde au centre.
- *
- * <p>Le monde est dessiné avec Nicellipse : le ciel en blanc (le fond de l'espace), la mer en bleu
- * sous la surface, et une icône par entité. La vue écoute les événements du modèle (décision D6) ;
- * le modèle, lui, ne connaît pas la vue.</p>
- */
 public class VueSimulation implements EcouteurTemps, EcouteurEntites {
 
     static final String TITRE = "Satellites et balises";
@@ -57,7 +49,6 @@ public class VueSimulation implements EcouteurTemps, EcouteurEntites {
         dessinerDecor();
     }
 
-    /** Abonne la vue aux événements qu'elle affiche. */
     public void abonner(EventHandler eventHandler) {
         eventHandler.registerListener(EvenementPasTermine.class, this);
         eventHandler.registerListener(EvenementEntiteAjoutee.class, this);
@@ -67,7 +58,6 @@ public class VueSimulation implements EcouteurTemps, EcouteurEntites {
         panneauObservation.abonner(eventHandler);
     }
 
-    /** Ouvre la fenêtre. À appeler sur le fil d'affichage Swing. */
     public void ouvrir() {
         JFrame fenetre = new JFrame(TITRE);
         fenetre.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -123,7 +113,6 @@ public class VueSimulation implements EcouteurTemps, EcouteurEntites {
         return new Dimension(coinBasDroit.x, coinBasDroit.y);
     }
 
-    /** Le ciel est le fond de l'espace ; la mer est un rectangle bleu qui commence à la surface. */
     private void dessinerDecor() {
         espace.setBackground(COULEUR_CIEL);
         Point surfaceAGauche = convertisseur.versEcran(new Position(0, GeometrieMonde.NIVEAU_SURFACE));

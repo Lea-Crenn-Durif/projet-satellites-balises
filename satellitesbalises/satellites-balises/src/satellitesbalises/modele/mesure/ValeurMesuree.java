@@ -3,7 +3,6 @@ package satellitesbalises.modele.mesure;
 import java.io.Serializable;
 import java.util.Objects;
 
-/** La valeur d'une grandeur dans une mesure, par exemple : température = 12,5. */
 public final class ValeurMesuree implements Serializable {
 
     private static final long serialVersionUID = 1L;

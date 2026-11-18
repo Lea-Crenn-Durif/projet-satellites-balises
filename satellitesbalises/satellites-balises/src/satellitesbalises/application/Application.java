@@ -19,11 +19,6 @@ import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.simulation.Simulation;
 import satellitesbalises.vue.VueSimulation;
 
-/**
- * Point d'entrée : assemble la simulation, la vue et la boucle temps réel.
- *
- * <p>C'est le seul endroit qui connaît toutes les classes concrètes (racine de composition).</p>
- */
 public final class Application {
 
     private static final GeometrieMonde GEOMETRIE = new GeometrieMonde(800, 300, 300);
@@ -50,11 +45,7 @@ public final class Application {
         boucle.demarrer();
     }
 
-    /**
-     * Quelques entités pour voir le monde vivre : un exemple de chaque déplacement,
-     * et des balises plus ou moins équipées.
-     * Le langage de commandes les remplacera (étape 7).
-     */
+
     private static void ajouterEntitesDeDemonstration(Simulation simulation) {
         FabriqueEntites fabrique = new FabriqueEntites(GEOMETRIE);
         simulation.ajouter(fabrique.nouveauSatellite("s1").en(new Position(120, 230))

@@ -5,18 +5,10 @@ import java.util.Objects;
 
 import satellitesbalises.modele.monde.Position;
 
-/**
- * Comment une grandeur varie dans l'océan simulé (EX-4.7) :
- * valeur = valeurSurface + gradientProfondeur × profondeur + amplitude × ondulation(x, pas).
- *
- * <p>La profondeur vaut −y. L'ondulation reste entre −1 et 1 : elle fait varier la valeur
- * d'un endroit à l'autre et d'un pas à l'autre, toujours de la même façon (pas de hasard).</p>
- */
 public final class ChampPhysique implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /** Plus ces nombres sont grands, plus l'ondulation est lente dans l'espace et dans le temps. */
     private static final double LONGUEUR_ONDE = 60;
     private static final double DUREE_ONDE = 40;
 

@@ -6,20 +6,12 @@ import java.util.Map;
 import satellitesbalises.modele.creation.ErreurConfiguration;
 import satellitesbalises.modele.monde.Position;
 
-/**
- * L'océan simulé, partagé par toutes les balises (décision D8, EX-4.7) : un champ physique par grandeur.
- * Deux balises au même endroit, au même pas, lisent donc la même valeur.
- */
 public class EnvironnementSimule implements Environnement {
 
     private static final long serialVersionUID = 1L;
 
     private final Map<Grandeur, ChampPhysique> champs = new HashMap<>();
 
-    /**
-     * L'océan du projet : les cinq grandeurs prédéfinies, avec des valeurs plausibles.
-     * Exemple : 20 °C en surface, un degré de moins tous les 20 de profondeur.
-     */
     public static EnvironnementSimule parDefaut() {
         EnvironnementSimule ocean = new EnvironnementSimule();
         ocean.definirChamp(Grandeur.TEMPERATURE, new ChampPhysique(20, -0.05, 1));
@@ -30,12 +22,10 @@ public class EnvironnementSimule implements Environnement {
         return ocean;
     }
 
-    /** Définit (ou remplace) la façon dont cette grandeur varie. */
     public void definirChamp(Grandeur grandeur, ChampPhysique champ) {
         champs.put(grandeur, champ);
     }
 
-    /** @throws ErreurConfiguration si aucun champ n'est défini pour cette grandeur */
     @Override
     public double valeur(Grandeur grandeur, Position position, long pas) {
         ChampPhysique champ = champs.get(grandeur);

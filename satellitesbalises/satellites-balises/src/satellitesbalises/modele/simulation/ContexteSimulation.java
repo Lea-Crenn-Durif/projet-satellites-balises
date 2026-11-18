@@ -6,13 +6,6 @@ import eventHandler.EventHandler;
 import satellitesbalises.modele.mesure.Environnement;
 import satellitesbalises.modele.monde.GeometrieMonde;
 
-/**
- * Ce dont une entité a besoin pour agir pendant un pas : le numéro du pas, la géométrie du monde,
- * l'environnement à mesurer et l'EventHandler pour annoncer ce qui change.
- *
- * <p>La simulation en crée un nouveau à chaque pas. Grâce à lui, les entités n'ont pas besoin
- * de connaître la simulation.</p>
- */
 public final class ContexteSimulation {
 
     private final long pas;

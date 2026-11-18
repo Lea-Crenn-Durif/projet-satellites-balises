@@ -4,10 +4,6 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * Des paramètres nommés, par exemple {@code vitesse = 2}, avec une valeur par défaut
- * pour ceux qu'on n'a pas donnés (EX-2.7).
- */
 public final class Parametres implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -22,12 +18,10 @@ public final class Parametres implements Serializable {
         return valeurs;
     }
 
-    /** La valeur du paramètre, ou {@code defaut} s'il n'a pas été donné. */
     public double nombre(String nom, double defaut) {
         return valeurs.getOrDefault(nom, defaut);
     }
 
-    /** Comme {@link #nombre}, arrondi à l'entier le plus proche. */
     public int entier(String nom, int defaut) {
         return valeurs.containsKey(nom) ? (int) Math.round(valeurs.get(nom)) : defaut;
     }

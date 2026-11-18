@@ -3,7 +3,6 @@ package satellitesbalises.modele.evenement;
 import eventHandler.AbstractEvent;
 import satellitesbalises.modele.entite.Entite;
 
-/** Publié quand une entité est ajoutée au monde. */
 public class EvenementEntiteAjoutee extends AbstractEvent {
 
     private static final long serialVersionUID = 1L;
