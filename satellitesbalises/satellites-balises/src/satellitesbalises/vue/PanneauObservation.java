@@ -18,20 +18,33 @@ import eventHandler.EventHandler;
 import satellitesbalises.modele.entite.Balise;
 import satellitesbalises.modele.entite.Satellite;
 import satellitesbalises.modele.entite.VisiteurEntite;
-import satellitesbalises.modele.mesure.Instrument;
+import satellitesbalises.modele.evenement.EcouteurBalises;
 import satellitesbalises.modele.evenement.EcouteurEntites;
+import satellitesbalises.modele.evenement.EvenementActiviteModifiee;
 import satellitesbalises.modele.evenement.EvenementApparenceModifiee;
 import satellitesbalises.modele.evenement.EvenementEntiteAjoutee;
 import satellitesbalises.modele.evenement.EvenementEntiteSupprimee;
+import satellitesbalises.modele.evenement.EvenementEquipementModifie;
+import satellitesbalises.modele.evenement.EvenementMemoireModifiee;
 import satellitesbalises.modele.evenement.EvenementPositionModifiee;
 
-
-class PanneauObservation extends JPanel implements EcouteurEntites, VisiteurEntite {
+/**
+ * La colonne de gauche (EX-2.11) : une ligne par entité, avec ce qu'on ne peut pas dessiner
+ * dans le monde (statut, portée, activité, mémoire, instruments…).
+ *
+ * <p>C'est un abonné de plus à l'EventHandler (décision D6) : l'ajouter n'a modifié aucune classe
+ * du modèle. Il est aussi visiteur d'entités, pour écrire la bonne ligne sans {@code instanceof}.</p>
+ */
+class PanneauObservation extends JPanel implements EcouteurEntites, EcouteurBalises, VisiteurEntite {
 
     private static final long serialVersionUID = 1L;
 
     private static final int LARGEUR = 300;
     private static final Font POLICE_LIGNE = new Font(Font.MONOSPACED, Font.PLAIN, 12);
+
+    /** Abréviations des instruments connus ; un instrument inconnu s'affiche sous son nom complet. */
+    private static final Map<String, String> ABREVIATIONS = Map.of(
+            "temperature", "T", "salinite", "S", "courantometre", "C", "turbidite", "Tu");
 
     private final JPanel lignesSatellites = colonne();
     private final JPanel lignesBalises = colonne();
@@ -54,6 +67,9 @@ class PanneauObservation extends JPanel implements EcouteurEntites, VisiteurEnti
     void abonner(EventHandler eventHandler) {
         eventHandler.registerListener(EvenementEntiteAjoutee.class, this);
         eventHandler.registerListener(EvenementEntiteSupprimee.class, this);
+        eventHandler.registerListener(EvenementActiviteModifiee.class, this);
+        eventHandler.registerListener(EvenementMemoireModifiee.class, this);
+        eventHandler.registerListener(EvenementEquipementModifie.class, this);
     }
 
     @Override
@@ -83,21 +99,40 @@ class PanneauObservation extends JPanel implements EcouteurEntites, VisiteurEnti
     }
 
     @Override
+    public void activiteModifiee(EvenementActiviteModifiee evenement) {
+        visiter(evenement.getBalise());
+    }
+
+    @Override
+    public void memoireModifiee(EvenementMemoireModifiee evenement) {
+        visiter(evenement.getBalise());
+    }
+
+    @Override
+    public void equipementModifie(EvenementEquipementModifie evenement) {
+        visiter(evenement.getBalise());
+    }
+
+    /** Ligne d'un satellite, par exemple « s1  DISPONIBLE  portée 30 ». */
+    @Override
     public void visiter(Satellite satellite) {
         String texte = String.format("%-4s %-11s portée %d", satellite.getNom(), satellite.getStatut(),
                 Math.round(satellite.getPortee()));
         ecrire(satellite.getNom(), texte, lignesSatellites);
     }
 
+    /** Ligne d'une balise, par exemple « b1  Collecte  12/50  T S ». */
     @Override
     public void visiter(Balise balise) {
         String instruments = balise.getInstruments().isEmpty() ? "-"
-                : balise.getInstruments().stream().map(Instrument::getNom).collect(Collectors.joining(" "));
+                : balise.getInstruments().stream().map(instrument -> ABREVIATIONS.getOrDefault(instrument.getNom(), instrument.getNom()))
+                        .collect(Collectors.joining(" "));
         String texte = String.format("%-4s %-12s %d/%d  %s", balise.getNom(), balise.getActivite().getNom(),
                 balise.getMemoire().getTaille(), balise.getMemoire().getCapacite(), instruments);
         ecrire(balise.getNom(), texte, lignesBalises);
     }
 
+    /** Crée la ligne de l'entité si elle n'existe pas encore, puis remplace son texte. */
     private void ecrire(String nom, String texte, JPanel section) {
         JLabel ligne = lignes.computeIfAbsent(nom, inconnu -> {
             JLabel nouvelle = new JLabel();

@@ -8,9 +8,18 @@ import satellitesbalises.modele.deplacement.DeplacementImmobile;
 import satellitesbalises.modele.deplacement.DeplacementOrbital;
 import satellitesbalises.modele.deplacement.DeplacementSinusoidal;
 import satellitesbalises.modele.deplacement.DeplacementVertical;
+import satellitesbalises.modele.mesure.Grandeur;
 import satellitesbalises.modele.mesure.Instrument;
+import satellitesbalises.modele.mesure.InstrumentCourantometre;
+import satellitesbalises.modele.mesure.InstrumentSimple;
 
-
+/**
+ * Le seul endroit qui connaît toutes les variantes du projet (EX-2.7, EX-2.8).
+ * Nouvelle variante = une classe + une ligne ici.
+ *
+ * <p>Un paramètre absent prend la valeur par défaut indiquée ci-dessous. La condition « duree »
+ * (étape 5) s'ajoutera ici.</p>
+ */
 public final class CataloguesParDefaut {
 
     private CataloguesParDefaut() {
@@ -35,7 +44,12 @@ public final class CataloguesParDefaut {
     }
 
     private static Catalogue<Instrument> instruments() {
-        return new Catalogue<>();
+        Catalogue<Instrument> catalogue = new Catalogue<>();
+        catalogue.enregistrer("temperature", p -> new InstrumentSimple("temperature", Grandeur.TEMPERATURE));
+        catalogue.enregistrer("salinite", p -> new InstrumentSimple("salinite", Grandeur.SALINITE));
+        catalogue.enregistrer("courantometre", p -> new InstrumentCourantometre());
+        catalogue.enregistrer("turbidite", p -> new InstrumentSimple("turbidite", Grandeur.TURBIDITE));
+        return catalogue;
     }
 
     private static Catalogue<ConditionRemontee> conditionsRemontee() {

@@ -2,7 +2,11 @@ package satellitesbalises.langage.arbre;
 
 import java.util.List;
 
-
+/**
+ * Étape 7a — EX-7.2 : programmes d'exemple construits DIRECTEMENT en arbre abstrait,
+ * avant toute syntaxe concrète. Ce sont les mêmes que exemples/01 et exemples/04.
+ * Les tests de l'interpréteur et de l'analyseur s'en servent.
+ */
 public final class ProgrammesExemples {
 
     private ProgrammesExemples() {

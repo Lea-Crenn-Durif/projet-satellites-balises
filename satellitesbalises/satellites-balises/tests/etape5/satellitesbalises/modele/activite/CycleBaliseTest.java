@@ -31,7 +31,17 @@ import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.simulation.ContexteSimulation;
 import satellitesbalises.modele.simulation.Simulation;
 
-
+/**
+ * Étape 5 — EX-5.1 à EX-5.8 : le cycle Collecte → Remontée → Attente → Transmission → Descente → Collecte.
+ *
+ * <p>Balise de référence : en (50, −10), mémoire de 2, un thermomètre, vitesse verticale 4, immobile.
+ * Déroulé attendu, pas par pas :</p>
+ * <ul>
+ *   <li>pas 1 : mesure (1/2) ; pas 2 : mesure (2/2), mémoire pleine → Remontée ;</li>
+ *   <li>pas 3 : y = −6 ; pas 4 : y = −2 ; pas 5 : y = 0 (jamais au-dessus) → Attente.</li>
+ * </ul>
+ * Les satellites n'existent pas encore : la transmission est déclenchée directement par le test.
+ */
 class CycleBaliseTest {
 
     private final GeometrieMonde geometrie = new GeometrieMonde(200, 100, 80);

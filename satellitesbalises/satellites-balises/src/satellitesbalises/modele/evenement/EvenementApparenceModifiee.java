@@ -3,6 +3,7 @@ package satellitesbalises.modele.evenement;
 import eventHandler.AbstractEvent;
 import satellitesbalises.modele.entite.Entite;
 
+/** Publié quand l'apparence d'une entité a changé (EX-2.9). */
 public class EvenementApparenceModifiee extends AbstractEvent {
 
     private static final long serialVersionUID = 1L;

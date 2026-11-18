@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import satellitesbalises.modele.monde.Position;
 
+/** Étape 3 — EX-3.1, EX-3.2, EX-3.3 : déplacements horizontal, vertical et sinusoïdal des balises. */
 class DeplacementsBalisesTest {
 
     // ---------- EX-3.1 : horizontal ----------

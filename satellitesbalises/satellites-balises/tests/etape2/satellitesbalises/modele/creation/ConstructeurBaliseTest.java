@@ -15,7 +15,13 @@ import satellitesbalises.modele.entite.Balise;
 import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Position;
 
-
+/**
+ * Étape 2 — EX-2.2, EX-2.3, EX-2.3b, EX-2.3c : construire une balise avec un monteur.
+ * Valeurs par défaut attendues : déplacement immobile, mémoire 50, remontée quand la mémoire est
+ * pleine, vitesse verticale 1, aucun instrument, apparence par défaut, activité Collecte.
+ *
+ * <p>Les instruments arrivent à l'étape 4 : ici on vérifie seulement qu'il n'y en a aucun par défaut.</p>
+ */
 class ConstructeurBaliseTest {
 
     private final FabriqueEntites fabrique = new FabriqueEntites(new GeometrieMonde(200, 100, 80));

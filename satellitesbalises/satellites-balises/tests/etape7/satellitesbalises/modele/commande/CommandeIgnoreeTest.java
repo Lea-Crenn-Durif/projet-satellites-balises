@@ -18,6 +18,10 @@ import satellitesbalises.modele.monde.Monde;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.simulation.Simulation;
 
+/**
+ * Étape 7 — EX-7.12 : une commande prévue dont l'entité a disparu est ignorée, signalée,
+ * et la simulation continue.
+ */
 class CommandeIgnoreeTest {
 
     private final GeometrieMonde geometrie = new GeometrieMonde(200, 100, 80);

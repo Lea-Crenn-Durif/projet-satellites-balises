@@ -41,6 +41,11 @@ import satellitesbalises.modele.monde.Zone;
 import satellitesbalises.modele.simulation.Simulation;
 import satellitesbalises.persistance.DepotSimulationSerialisation;
 
+/**
+ * Étape 9 — EX-9.1 : tests d'intégration couvrant la liste du §6 du sujet :
+ * plusieurs entités, déplacements variés, plusieurs instruments, mesures de natures différentes,
+ * conditions de communication, transferts, langage, sauvegarde et reprise.
+ */
 class ScenarioCompletTest {
 
     private final GeometrieMonde geometrie = new GeometrieMonde(800, 300, 300);

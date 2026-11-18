@@ -47,7 +47,13 @@ import satellitesbalises.modele.monde.Monde;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.simulation.Simulation;
 
-
+/**
+ * Étape 7b — EX-7.2 à EX-7.9, EX-7.11 : de l'arbre abstrait aux commandes datées.
+ *
+ * <p>Règle de date : les commandes sont planifiées au pas courant + 1 ;
+ * « attendre n » décale de n les commandes qui suivent. Tout ou rien : un programme
+ * qui contient une erreur ne planifie aucune commande.</p>
+ */
 class InterpreteurProgrammeTest {
 
     private final GeometrieMonde geometrie = new GeometrieMonde(800, 300, 300);

@@ -29,6 +29,7 @@ import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Monde;
 import satellitesbalises.modele.monde.Position;
 
+/** Étape 4 — EX-4.1, EX-4.4, EX-4.8, EX-4.9 : une balise en collecte remplit sa mémoire. */
 class CollecteTest {
 
     private final GeometrieMonde geometrie = new GeometrieMonde(200, 100, 80);

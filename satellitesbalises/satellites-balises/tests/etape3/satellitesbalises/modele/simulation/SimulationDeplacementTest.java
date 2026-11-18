@@ -25,6 +25,7 @@ import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Monde;
 import satellitesbalises.modele.monde.Position;
 
+/** Étape 3 — EX-3.9, EX-3.10 : les entités bougent dans la simulation et le font savoir. */
 class SimulationDeplacementTest {
 
     private final GeometrieMonde geometrie = new GeometrieMonde(200, 100, 80);

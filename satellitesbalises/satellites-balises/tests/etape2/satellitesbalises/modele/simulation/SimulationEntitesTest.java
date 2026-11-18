@@ -29,6 +29,7 @@ import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Monde;
 import satellitesbalises.modele.monde.Position;
 
+/** Étape 2 — EX-2.5, EX-2.9 : ajout, suppression, apparence, via la simulation et ses commandes. */
 class SimulationEntitesTest {
 
     private final GeometrieMonde geometrie = new GeometrieMonde(200, 100, 80);

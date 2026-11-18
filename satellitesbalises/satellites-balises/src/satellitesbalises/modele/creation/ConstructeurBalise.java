@@ -15,7 +15,13 @@ import satellitesbalises.modele.mesure.MemoireBalise;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.monde.Zone;
 
-
+/**
+ * Monteur de balise (EX-2.2, EX-2.3, EX-2.3b, EX-2.3c) : on règle ce qu'on veut, dans l'ordre
+ * qu'on veut, puis {@link #construire()} vérifie tout et crée la balise.
+ *
+ * <p>Seule la position est obligatoire. Par défaut : immobile, mémoire de 50 mesures, remontée quand
+ * la mémoire est pleine, vitesse verticale 1, aucun instrument, apparence par défaut.</p>
+ */
 public class ConstructeurBalise {
 
     private final String nom;
@@ -68,6 +74,10 @@ public class ConstructeurBalise {
         return this;
     }
 
+    /**
+     * @throws ErreurConfiguration si la position manque, n'est pas dans la mer (la surface compte),
+     *                             ou si la capacité mémoire ou la vitesse verticale sont ≤ 0
+     */
     public Balise construire() {
         String description = "Balise " + nom;
         fabrique.verifierPlacement(description, position, Zone.MER);

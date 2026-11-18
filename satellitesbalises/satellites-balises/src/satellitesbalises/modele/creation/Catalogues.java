@@ -6,6 +6,7 @@ import satellitesbalises.modele.activite.ConditionRemontee;
 import satellitesbalises.modele.deplacement.Deplacement;
 import satellitesbalises.modele.mesure.Instrument;
 
+/** Les trois catalogues du projet, réunis pour être passés ensemble (au langage, par exemple). */
 public final class Catalogues {
 
     private final Catalogue<Deplacement> deplacements;

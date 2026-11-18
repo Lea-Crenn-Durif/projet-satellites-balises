@@ -14,7 +14,10 @@ import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Monde;
 import satellitesbalises.modele.simulation.Simulation;
 
-
+/**
+ * Étape 1 — EX-1.6 : chaque événement appelle la bonne méthode de la bonne interface
+ * (double dispatch avec l'EventHandler du cours).
+ */
 class EvenementPasTermineTest {
 
     private final Simulation simulation = new Simulation(

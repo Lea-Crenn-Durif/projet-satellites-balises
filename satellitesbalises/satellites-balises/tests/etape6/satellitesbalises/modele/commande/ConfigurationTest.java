@@ -28,7 +28,11 @@ import satellitesbalises.modele.monde.Monde;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.simulation.Simulation;
 
-
+/**
+ * Étape 6 — EX-6.1, EX-6.12 : configurer et mettre en service par commande.
+ * Propriétés configurables : satellite « portee », « debit » ; balise « memoire », « vitesseVerticale ».
+ * Une commande impossible n'arrête jamais la simulation : elle est ignorée et signalée.
+ */
 class ConfigurationTest {
 
     private final GeometrieMonde geometrie = new GeometrieMonde(200, 100, 80);

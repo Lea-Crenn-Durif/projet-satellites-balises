@@ -32,6 +32,17 @@ import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.simulation.ContexteSimulation;
 import satellitesbalises.modele.simulation.Simulation;
 
+/**
+ * Étape 6 — EX-6.2 à EX-6.8 : la rencontre balise ↔ satellite et le transfert.
+ *
+ * <p>Calendrier d'une balise à capacité c, en y = −2, vitesse verticale 5 :</p>
+ * <ul>
+ *   <li>pas 1 à c : collecte (une mesure par pas) ; au pas c la mémoire est pleine → Remontée ;</li>
+ *   <li>pas c+1 : surface atteinte → Attente, et dans la phase « communications » du même pas,
+ *       le transfert est créé (rien n'est encore transmis) → Transmission ;</li>
+ *   <li>pas suivants : « débit » mesures par pas ; le transfert se termine au pas où part la dernière.</li>
+ * </ul>
+ */
 class CommunicationTest {
 
     private final GeometrieMonde geometrie = new GeometrieMonde(200, 100, 80);

@@ -4,6 +4,7 @@ import eventHandler.EventHandler;
 import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.simulation.ContexteSimulation;
 
+/** Petits outils partagés par les tests de déplacement de l'étape 3. */
 final class OutilsDeplacement {
 
     /** Monde de 200 de large, 100 de ciel, 80 de mer. */

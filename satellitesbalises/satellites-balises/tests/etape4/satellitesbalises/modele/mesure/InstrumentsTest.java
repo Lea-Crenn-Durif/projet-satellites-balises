@@ -16,8 +16,10 @@ import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.simulation.ContexteSimulation;
 
+/** Étape 4 — EX-4.2, EX-4.3 : les instruments produisent des mesures complètes. */
 class InstrumentsTest {
 
+    /** Environnement de test : chaque grandeur a une valeur fixe et reconnaissable. */
     private static final Environnement ENVIRONNEMENT_FIXE = (grandeur, position, pas) -> switch (grandeur.getNom()) {
         case "temperature" -> 14.5;
         case "salinite" -> 35;

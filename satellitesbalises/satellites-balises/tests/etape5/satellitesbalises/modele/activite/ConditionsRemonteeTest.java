@@ -21,6 +21,7 @@ import satellitesbalises.modele.mesure.ValeurMesuree;
 import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Position;
 
+/** Étape 5 — EX-5.2 : la remontée se déclenche selon une condition interchangeable. */
 class ConditionsRemonteeTest {
 
     private final FabriqueEntites fabrique = new FabriqueEntites(new GeometrieMonde(200, 100, 80));

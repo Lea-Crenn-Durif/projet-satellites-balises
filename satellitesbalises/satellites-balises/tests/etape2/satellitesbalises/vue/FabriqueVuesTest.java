@@ -8,7 +8,10 @@ import satellitesbalises.modele.creation.FabriqueEntites;
 import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Position;
 
-
+/**
+ * Étape 2 — EX-2.10 (partie testable) : la fabrique de vues choisit le bon dessin
+ * grâce au patron Visiteur, sans instanceof. Aucune fenêtre n'est ouverte.
+ */
 class FabriqueVuesTest {
 
     private final GeometrieMonde geometrie = new GeometrieMonde(800, 300, 300);

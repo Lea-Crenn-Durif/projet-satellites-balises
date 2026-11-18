@@ -9,7 +9,11 @@ import org.junit.jupiter.api.Test;
 import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Position;
 
-
+/**
+ * Étape 1 — EX-1.8 : la conversion modèle → écran est à un seul endroit.
+ * Modèle : y vers le haut, 0 à la surface. Écran : y vers le bas, 0 en haut de la fenêtre.
+ * Formule : xÉcran = x ; yÉcran = hauteurCiel − y.
+ */
 class ConvertisseurCoordonneesTest {
 
     private final ConvertisseurCoordonnees convertisseur =

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import satellitesbalises.modele.entite.Balise;
 
+/** Dit quand une balise en collecte doit remonter à la surface (patron Stratégie). */
 @FunctionalInterface
 public interface ConditionRemontee extends Serializable {
 
