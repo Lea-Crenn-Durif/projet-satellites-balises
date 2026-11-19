@@ -16,7 +16,7 @@ import satellitesbalises.modele.monde.Position;
 
 /**
  * Étape 2 — EX-2.1, EX-2.3, EX-2.3b, EX-2.3c : construire un satellite avec un monteur.
- * Valeurs par défaut attendues : déplacement immobile, portée 30, débit 2, apparence par défaut.
+ * Valeurs par défaut attendues : déplacement immobile, portée 30, débit 5, apparence par défaut.
  */
 class ConstructeurSatelliteTest {
 
@@ -51,7 +51,7 @@ class ConstructeurSatelliteTest {
 
         assertInstanceOf(DeplacementImmobile.class, s1.getDeplacement());
         assertEquals(30, s1.getPortee(), 1e-9);
-        assertEquals(2, s1.getDebit());
+        assertEquals(5, s1.getDebit());
         assertEquals(Apparence.parDefaut(), s1.getApparence());
     }
 
