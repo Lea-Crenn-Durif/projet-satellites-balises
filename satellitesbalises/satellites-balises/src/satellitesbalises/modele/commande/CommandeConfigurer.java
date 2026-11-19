@@ -9,6 +9,11 @@ import satellitesbalises.modele.entite.Entite;
 import satellitesbalises.modele.evenement.EvenementCommandeIgnoree;
 import satellitesbalises.modele.simulation.Simulation;
 
+/**
+ * Change des propriétés d'une entité par leur nom (EX-6.12) : « portee », « debit » pour un satellite,
+ * « memoire », « vitesseVerticale » pour une balise. Entité inconnue, propriété inconnue ou valeur
+ * refusée : rien ne change, la commande est ignorée et signalée.
+ */
 public class CommandeConfigurer implements CommandeSimulation {
 
     private static final long serialVersionUID = 1L;

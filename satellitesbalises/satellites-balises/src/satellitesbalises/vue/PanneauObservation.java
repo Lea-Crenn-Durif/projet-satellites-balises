@@ -35,6 +35,13 @@ import satellitesbalises.modele.evenement.EvenementTransfertDemarre;
 import satellitesbalises.modele.evenement.EvenementTransfertProgresse;
 import satellitesbalises.modele.evenement.EvenementTransfertTermine;
 
+/**
+ * La colonne de gauche (EX-2.11) : une ligne par entité, avec ce qu'on ne peut pas dessiner
+ * dans le monde (statut, portée, activité, mémoire, instruments…).
+ *
+ * <p>C'est un abonné de plus à l'EventHandler (décision D6) : l'ajouter n'a modifié aucune classe
+ * du modèle. Il est aussi visiteur d'entités, pour écrire la bonne ligne sans {@code instanceof}.</p>
+ */
 class PanneauObservation extends JPanel
         implements EcouteurEntites, EcouteurBalises, EcouteurSatellites, EcouteurTransferts, VisiteurEntite {
 
@@ -43,12 +50,14 @@ class PanneauObservation extends JPanel
     private static final int LARGEUR = 340;
     private static final Font POLICE_LIGNE = new Font(Font.MONOSPACED, Font.PLAIN, 12);
 
+    /** Abréviations des instruments connus ; un instrument inconnu s'affiche sous son nom complet. */
     private static final Map<String, String> ABREVIATIONS = Map.of(
             "temperature", "T", "salinite", "S", "courantometre", "C", "turbidite", "Tu");
 
     private final JPanel lignesSatellites = colonne();
     private final JPanel lignesBalises = colonne();
     private final Map<String, JLabel> lignes = new HashMap<>();
+    /** Avancement du transfert en cours de chaque balise, en pourcentage. */
     private final Map<String, Integer> pourcentages = new HashMap<>();
 
     PanneauObservation() {
@@ -140,6 +149,7 @@ class PanneauObservation extends JPanel
         visiter(evenement.getTransfert().getSatellite());
     }
 
+    /** Ligne d'un satellite, par exemple « s1  OCCUPE  portée 30  archive 12 ». */
     @Override
     public void visiter(Satellite satellite) {
         String texte = String.format("%-4s %-12s portée %-3d archive %d", satellite.getNom(), satellite.getStatut(),
@@ -147,6 +157,7 @@ class PanneauObservation extends JPanel
         ecrire(satellite.getNom(), texte, lignesSatellites);
     }
 
+    /** Ligne d'une balise, par exemple « b1  Collecte  12/50  T S ». */
     @Override
     public void visiter(Balise balise) {
         String instruments = balise.getInstruments().isEmpty() ? "-"
@@ -165,6 +176,7 @@ class PanneauObservation extends JPanel
         visiter(transfert.getSatellite());
     }
 
+    /** Crée la ligne de l'entité si elle n'existe pas encore, puis remplace son texte. */
     private void ecrire(String nom, String texte, JPanel section) {
         JLabel ligne = lignes.computeIfAbsent(nom, inconnu -> {
             JLabel nouvelle = new JLabel();

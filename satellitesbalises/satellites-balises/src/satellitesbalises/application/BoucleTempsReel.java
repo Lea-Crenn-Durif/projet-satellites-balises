@@ -6,6 +6,12 @@ import javax.swing.Timer;
 
 import satellitesbalises.modele.simulation.Simulation;
 
+/**
+ * Fait avancer la simulation d'un pas à intervalle régulier (décision D2).
+ *
+ * <p>C'est une minuterie Swing : chaque pas s'exécute sur le fil d'affichage, donc une action
+ * de l'utilisateur (pause, programme, sauvegarde) tombe toujours entre deux pas, jamais au milieu.</p>
+ */
 class BoucleTempsReel {
 
     private final Timer minuterie;

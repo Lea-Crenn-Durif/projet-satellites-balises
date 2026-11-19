@@ -3,6 +3,7 @@ package satellitesbalises.modele.evenement;
 import eventHandler.AbstractEvent;
 import satellitesbalises.modele.entite.Balise;
 
+/** Publié quand le contenu de la mémoire d'une balise a changé (EX-4.9). */
 public class EvenementMemoireModifiee extends AbstractEvent {
 
     private static final long serialVersionUID = 1L;

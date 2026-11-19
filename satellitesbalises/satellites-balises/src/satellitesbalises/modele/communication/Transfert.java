@@ -14,6 +14,12 @@ import satellitesbalises.modele.evenement.EvenementTransfertTermine;
 import satellitesbalises.modele.mesure.Mesure;
 import satellitesbalises.modele.simulation.ContexteSimulation;
 
+/**
+ * Le passage des mesures d'une balise vers un satellite, sur plusieurs pas (EX-6.5 à EX-6.8).
+ *
+ * <p>À chaque pas : s'il n'est pas rompu, il fait partir min(débit, reste) mesures de la mémoire
+ * de la balise vers l'archive du satellite. Il se termine au pas où part la dernière mesure.</p>
+ */
 public class Transfert implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,12 +31,14 @@ public class Transfert implements Serializable {
     private boolean termine;
     private boolean rompu;
 
+    /** Le transfert porte sur les mesures présentes dans la mémoire au moment où il est créé. */
     public Transfert(Balise balise, Satellite satellite) {
         this.balise = Objects.requireNonNull(balise, "balise");
         this.satellite = Objects.requireNonNull(satellite, "satellite");
         this.aTransmettre = balise.getMemoire().getTaille();
     }
 
+    /** Un pas de transfert : vérifie qu'il peut continuer, puis envoie au plus « débit » mesures. */
     public void avancer(ContexteSimulation contexte) {
         if (termine) {
             return;
@@ -53,6 +61,7 @@ public class Transfert implements Serializable {
         }
     }
 
+    /** Arrête le transfert avant la fin : la balise garde ce qui n'est pas parti et revient en Attente (EX-6.7). */
     public void rompre(ContexteSimulation contexte) {
         if (!termine) {
             rompu = true;
@@ -68,6 +77,7 @@ public class Transfert implements Serializable {
         return rompu;
     }
 
+    /** Part des mesures déjà envoyées, entre 0 et 1. */
     public double getProgression() {
         return aTransmettre == 0 ? 1 : (double) transmis / aTransmettre;
     }
@@ -84,6 +94,7 @@ public class Transfert implements Serializable {
         return satellite;
     }
 
+    /** Libère le satellite (EX-6.8, EX-6.9), fait changer d'activité la balise, puis l'annonce. */
     private void finir(boolean complet, ContexteSimulation contexte) {
         termine = true;
         satellite.liberer();

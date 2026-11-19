@@ -1,0 +1,33 @@
+-- Démonstration : le programme chargé et exécuté au démarrage de l'application.
+-- Un exemple de chaque déplacement, des balises plus ou moins équipées,
+-- deux façons de déclencher la remontée, et s2 arrêté du pas 150 au pas 300.
+
+satellite s1 en (120, 230) { debit = 1 }
+deplacement s1 orbital(vitesse = 4)
+
+satellite s2 en (400, 260) { portee = 40 }
+deplacement s2 orbital(vitesse = 1)
+
+satellite s3 en (680, 210)
+apparence s3 { couleur = "rouge" ; taille = 40 }
+
+balise b1 en (100, -80) { vitesseVerticale = 3 }
+deplacement b1 horizontal(vitesse = 2)
+equiper b1 temperature(), salinite()
+
+balise b2 en (300, -180) { memoire = 10 ; vitesseVerticale = 4 }
+deplacement b2 vertical(vitesse = 2, profondeurMin = 40, profondeurMax = 260)
+equiper b2 courantometre()
+
+balise b3 en (520, -120) { memoire = 20 }
+deplacement b3 sinusoidal(vitesse = 1, amplitude = 40, periode = 120, profondeur = 150)
+equiper b3 turbidite(), temperature()
+apparence b3 { couleur = "orange" ; taille = 40 }
+
+balise b4 en (700, -240) { vitesseVerticale = 3 }
+remontee b4 duree(pas = 60)
+
+attendre 149
+arreter s2            -- panne au pas 150
+attendre 150
+demarrer s2           -- remise en service au pas 300

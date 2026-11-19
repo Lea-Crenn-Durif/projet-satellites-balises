@@ -1,0 +1,16 @@
+-- Exemple 1 : construire une campagne simple
+-- Monde de référence : 800 de large, 300 de ciel, 300 de mer.
+
+satellite s1 en (0, 200) { portee = 40 ; debit = 3 }
+deplacement s1 orbital(vitesse = 2)
+
+satellite s2 en (600, 250)
+deplacement s2 geostationnaire()
+
+balise b1 en (120, -80) { memoire = 30 ; vitesseVerticale = 2 }
+deplacement b1 sinusoidal(amplitude = 15, periode = 60, vitesse = 1, profondeur = 80)
+equiper b1 temperature(), salinite()
+
+balise b2 en (400, -150)
+deplacement b2 horizontal(vitesse = 2)
+equiper b2 courantometre()

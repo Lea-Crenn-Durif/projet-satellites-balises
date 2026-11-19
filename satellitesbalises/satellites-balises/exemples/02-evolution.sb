@@ -1,0 +1,12 @@
+-- Exemple 2 : faire évoluer une campagne au fil du temps
+
+balise b1 en (200, -100) { memoire = 20 }
+deplacement b1 vertical(vitesse = 3, profondeurMin = 40, profondeurMax = 200)
+equiper b1 temperature()
+
+attendre 100
+deplacement b1 horizontal(vitesse = 1)    -- changement de comportement en cours de route
+
+attendre 100
+configurer b1 { memoire = 40 }
+remontee b1 duree(pas = 150)

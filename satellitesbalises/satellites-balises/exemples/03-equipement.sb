@@ -1,0 +1,9 @@
+-- Exemple 3 : équiper, déséquiper, personnaliser l'apparence
+
+balise b1 en (300, -60)
+equiper b1 temperature(), salinite(), courantometre(), turbidite()
+apparence b1 { couleur = "orange" ; taille = 14 }
+
+attendre 50
+desequiper b1 turbidite
+apparence b1 { couleur = "rouge" }

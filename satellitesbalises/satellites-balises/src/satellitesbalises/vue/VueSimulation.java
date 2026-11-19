@@ -10,6 +10,7 @@ import java.util.Objects;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
 import javax.swing.WindowConstants;
 
 import eventHandler.EventHandler;
@@ -32,6 +33,14 @@ import satellitesbalises.modele.evenement.EvenementTransfertTermine;
 import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Position;
 
+/**
+ * La fenêtre de l'application : la barre de contrôle en haut, deux onglets à gauche (Observation,
+ * Commandes), le monde au centre.
+ *
+ * <p>Le monde est dessiné avec Nicellipse : le ciel en blanc (le fond de l'espace), la mer en bleu
+ * sous la surface, et une icône par entité. La vue écoute les événements du modèle (décision D6) ;
+ * le modèle, lui, ne connaît pas la vue.</p>
+ */
 public class VueSimulation implements EcouteurTemps, EcouteurEntites, EcouteurSatellites, EcouteurTransferts {
 
     static final String TITRE = "Satellites et balises";
@@ -44,6 +53,7 @@ public class VueSimulation implements EcouteurTemps, EcouteurEntites, EcouteurSa
     private final NiSpace espace;
     private final BarreDeControle barre;
     private final PanneauObservation panneauObservation = new PanneauObservation();
+    private final PanneauCommandes panneauCommandes;
     private final FabriqueVues fabriqueVues;
     private final Map<String, VueEntite> vuesEntites = new HashMap<>();
     private final Map<Transfert, VueTransfert> vuesTransferts = new HashMap<>();
@@ -53,10 +63,12 @@ public class VueSimulation implements EcouteurTemps, EcouteurEntites, EcouteurSa
         this.convertisseur = new ConvertisseurCoordonnees(geometrie);
         this.espace = new NiSpace(TITRE, tailleDuMonde());
         this.barre = new BarreDeControle(actions, PAS_PAR_SECONDE_INITIAL);
+        this.panneauCommandes = new PanneauCommandes(actions);
         this.fabriqueVues = new FabriqueVues(convertisseur);
         dessinerDecor();
     }
 
+    /** Abonne la vue aux événements qu'elle affiche. */
     public void abonner(EventHandler eventHandler) {
         eventHandler.registerListener(EvenementPasTermine.class, this);
         eventHandler.registerListener(EvenementEntiteAjoutee.class, this);
@@ -68,14 +80,29 @@ public class VueSimulation implements EcouteurTemps, EcouteurEntites, EcouteurSa
         eventHandler.registerListener(EvenementTransfertProgresse.class, this);
         eventHandler.registerListener(EvenementTransfertTermine.class, this);
         panneauObservation.abonner(eventHandler);
+        panneauCommandes.abonner(eventHandler);
     }
 
+    /** Met un programme dans l'onglet « Commandes », prêt à être exécuté. */
+    public void afficherProgramme(String texte) {
+        panneauCommandes.afficherProgramme(texte);
+    }
+
+    /** Ajoute un message dans l'onglet « Commandes ». */
+    public void afficherMessage(String message) {
+        panneauCommandes.afficherMessage(message);
+    }
+
+    /** Ouvre la fenêtre. À appeler sur le fil d'affichage Swing. */
     public void ouvrir() {
         JFrame fenetre = new JFrame(TITRE);
         fenetre.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         fenetre.setResizable(false);
         fenetre.add(barre, BorderLayout.NORTH);
-        fenetre.add(panneauObservation, BorderLayout.WEST);
+        JTabbedPane onglets = new JTabbedPane();
+        onglets.addTab("Observation", panneauObservation);
+        onglets.addTab("Commandes", panneauCommandes);
+        fenetre.add(onglets, BorderLayout.WEST);
         fenetre.add(espace, BorderLayout.CENTER);
         fenetre.pack();
         fenetre.setLocationRelativeTo(null);
@@ -155,6 +182,7 @@ public class VueSimulation implements EcouteurTemps, EcouteurEntites, EcouteurSa
         return new Dimension(coinBasDroit.x, coinBasDroit.y);
     }
 
+    /** Le ciel est le fond de l'espace ; la mer est un rectangle bleu qui commence à la surface. */
     private void dessinerDecor() {
         espace.setBackground(COULEUR_CIEL);
         Point surfaceAGauche = convertisseur.versEcran(new Position(0, GeometrieMonde.NIVEAU_SURFACE));

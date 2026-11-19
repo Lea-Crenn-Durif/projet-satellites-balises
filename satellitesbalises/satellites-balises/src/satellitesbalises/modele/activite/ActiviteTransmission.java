@@ -3,6 +3,10 @@ package satellitesbalises.modele.activite;
 import satellitesbalises.modele.entite.Balise;
 import satellitesbalises.modele.simulation.ContexteSimulation;
 
+/**
+ * Un satellite reçoit les mesures de la balise. C'est le transfert qui les fait partir (étape 6) :
+ * la balise, elle, reste à la surface. Transfert complet → Descente ; interrompu → retour en Attente.
+ */
 public class ActiviteTransmission extends ActiviteAvecProfondeur {
 
     private static final long serialVersionUID = 1L;

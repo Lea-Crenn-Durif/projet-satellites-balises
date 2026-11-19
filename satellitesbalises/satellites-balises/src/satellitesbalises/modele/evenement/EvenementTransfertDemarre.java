@@ -3,6 +3,7 @@ package satellitesbalises.modele.evenement;
 import eventHandler.AbstractEvent;
 import satellitesbalises.modele.communication.Transfert;
 
+/** Publié quand un transfert commence (EX-6.10). */
 public class EvenementTransfertDemarre extends AbstractEvent {
 
     private static final long serialVersionUID = 1L;

@@ -6,6 +6,12 @@ import java.util.Objects;
 
 import satellitesbalises.modele.monde.Position;
 
+/**
+ * Une mesure faite par un instrument : qui l'a faite, à quel pas, où, et les valeurs obtenues.
+ *
+ * <p>Un courantomètre donne deux valeurs dans une même mesure (vitesse et direction du courant) ;
+ * les autres instruments en donnent une (EX-4.3).</p>
+ */
 public final class Mesure implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,6 +44,11 @@ public final class Mesure implements Serializable {
         return valeurs;
     }
 
+    /**
+     * La valeur mesurée pour cette grandeur.
+     *
+     * @throws IllegalArgumentException si la mesure ne contient pas cette grandeur
+     */
     public double valeurDe(Grandeur grandeur) {
         for (ValeurMesuree valeur : valeurs) {
             if (valeur.getGrandeur().equals(grandeur)) {

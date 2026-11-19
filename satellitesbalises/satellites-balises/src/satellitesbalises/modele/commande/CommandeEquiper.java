@@ -9,6 +9,7 @@ import satellitesbalises.modele.evenement.EvenementEquipementModifie;
 import satellitesbalises.modele.mesure.Instrument;
 import satellitesbalises.modele.simulation.Simulation;
 
+/** Ajoute un instrument à une balise et l'annonce (EX-4.1, EX-4.9). Balise inconnue : commande ignorée et signalée. */
 public class CommandeEquiper implements CommandeSimulation {
 
     private static final long serialVersionUID = 1L;

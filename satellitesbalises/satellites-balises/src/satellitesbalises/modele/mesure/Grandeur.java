@@ -3,6 +3,13 @@ package satellitesbalises.modele.mesure;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Une grandeur physique que l'on peut mesurer, par exemple la température en °C.
+ * Deux grandeurs de même nom et de même unité sont égales.
+ *
+ * <p>Les cinq grandeurs du projet sont prédéfinies ci-dessous. On peut en créer d'autres
+ * sans rien modifier ici (EX-4.8).</p>
+ */
 public final class Grandeur implements Serializable {
 
     private static final long serialVersionUID = 1L;

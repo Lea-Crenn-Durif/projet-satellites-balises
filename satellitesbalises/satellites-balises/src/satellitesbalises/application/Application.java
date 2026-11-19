@@ -1,30 +1,40 @@
 package satellitesbalises.application;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
+
 import javax.swing.SwingUtilities;
 
 import eventHandler.EventHandler;
-import satellitesbalises.modele.activite.ConditionDuree;
-import satellitesbalises.modele.commande.CommandeChangerStatut;
+import satellitesbalises.langage.analyse.AnalyseurProgramme;
+import satellitesbalises.langage.interpretation.InterpreteurProgramme;
+import satellitesbalises.modele.creation.CataloguesParDefaut;
 import satellitesbalises.modele.creation.FabriqueEntites;
-import satellitesbalises.modele.deplacement.DeplacementHorizontal;
-import satellitesbalises.modele.deplacement.DeplacementOrbital;
-import satellitesbalises.modele.deplacement.DeplacementSinusoidal;
-import satellitesbalises.modele.deplacement.DeplacementVertical;
-import satellitesbalises.modele.entite.Apparence;
 import satellitesbalises.modele.mesure.EnvironnementSimule;
-import satellitesbalises.modele.mesure.Grandeur;
-import satellitesbalises.modele.mesure.InstrumentCourantometre;
-import satellitesbalises.modele.mesure.InstrumentSimple;
 import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Monde;
-import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.simulation.Simulation;
 import satellitesbalises.vue.VueSimulation;
 
+/**
+ * Point d'entrée : assemble la simulation, la vue, le langage et la boucle temps réel.
+ *
+ * <p>C'est le seul endroit qui connaît toutes les classes concrètes (racine de composition).
+ * Au démarrage, il charge et exécute le programme de démonstration {@code exemples/00-demonstration.sb}.</p>
+ */
 public final class Application {
 
     private static final GeometrieMonde GEOMETRIE = new GeometrieMonde(800, 300, 300);
     private static final int MILLISECONDES_PAR_PAS = 100;
+    private static final String DEMONSTRATION = "00-demonstration.sb";
+
+    /** L'application peut être lancée depuis le module ou depuis la racine du projet. */
+    private static final List<Path> DOSSIERS_EXEMPLES_POSSIBLES = List.of(
+            Path.of("exemples"), Path.of("satellites-balises", "exemples"));
 
     private Application() {
         // Classe utilitaire : pas d'instance.
@@ -39,37 +49,40 @@ public final class Application {
         Simulation simulation = new Simulation(new Monde(GEOMETRIE), EnvironnementSimule.parDefaut(), eventHandler);
 
         BoucleTempsReel boucle = new BoucleTempsReel(simulation, MILLISECONDES_PAR_PAS);
-        VueSimulation vue = new VueSimulation(GEOMETRIE, new ControleurApplication(boucle));
+        InterpreteurProgramme interpreteur = new InterpreteurProgramme(
+                new FabriqueEntites(GEOMETRIE), CataloguesParDefaut.creer());
+        ControleurApplication controleur = new ControleurApplication(
+                boucle, simulation, new AnalyseurProgramme(), interpreteur);
+
+        VueSimulation vue = new VueSimulation(GEOMETRIE, controleur);
         vue.abonner(eventHandler);
-        ajouterEntitesDeDemonstration(simulation);
+        lancerLaDemonstration(vue, controleur);
 
         vue.ouvrir();
         boucle.demarrer();
     }
 
-    private static void ajouterEntitesDeDemonstration(Simulation simulation) {
-        FabriqueEntites fabrique = new FabriqueEntites(GEOMETRIE);
-        simulation.ajouter(fabrique.nouveauSatellite("s1").en(new Position(120, 230)).avecDebit(1)
-                .avecDeplacement(new DeplacementOrbital(4)).construire());
-        simulation.ajouter(fabrique.nouveauSatellite("s2").en(new Position(400, 260)).avecPortee(40)
-                .avecDeplacement(new DeplacementOrbital(1)).construire());
-        simulation.ajouter(fabrique.nouveauSatellite("s3").en(new Position(680, 210))
-                .avecApparence(new Apparence("rouge", 40)).construire());
-        simulation.ajouter(fabrique.nouvelleBalise("b1").en(new Position(100, -80)).avecVitesseVerticale(3)
-                .avecDeplacement(new DeplacementHorizontal(2))
-                .equipeeDe(new InstrumentSimple("temperature", Grandeur.TEMPERATURE),
-                        new InstrumentSimple("salinite", Grandeur.SALINITE)).construire());
-        simulation.ajouter(fabrique.nouvelleBalise("b2").en(new Position(300, -180)).avecMemoire(10).avecVitesseVerticale(4)
-                .avecDeplacement(new DeplacementVertical(2, 40, 260))
-                .equipeeDe(new InstrumentCourantometre()).construire());
-        simulation.ajouter(fabrique.nouvelleBalise("b3").en(new Position(520, -120)).avecMemoire(20)
-                .avecDeplacement(new DeplacementSinusoidal(1, 40, 120, 150))
-                .equipeeDe(new InstrumentSimple("turbidite", Grandeur.TURBIDITE),
-                        new InstrumentSimple("temperature", Grandeur.TEMPERATURE))
-                .avecApparence(new Apparence("orange", 40)).construire());
-        simulation.ajouter(fabrique.nouvelleBalise("b4").en(new Position(700, -240)).avecVitesseVerticale(3)
-                .remontantQuand(new ConditionDuree(60)).construire());
-        simulation.planifier(new CommandeChangerStatut("s2", false), 150);
-        simulation.planifier(new CommandeChangerStatut("s2", true), 300);
+    private static void lancerLaDemonstration(VueSimulation vue, ControleurApplication controleur) {
+        Optional<String> programme = lireDemonstration();
+        if (programme.isEmpty()) {
+            vue.afficherMessage("Programme de démonstration introuvable (exemples/" + DEMONSTRATION + ").");
+            return;
+        }
+        vue.afficherProgramme(programme.get());
+        vue.afficherMessage("Démonstration : " + controleur.executerProgramme(programme.get()));
+    }
+
+    private static Optional<String> lireDemonstration() {
+        for (Path dossier : DOSSIERS_EXEMPLES_POSSIBLES) {
+            Path fichier = dossier.resolve(DEMONSTRATION);
+            if (Files.isRegularFile(fichier)) {
+                try {
+                    return Optional.of(Files.readString(fichier, StandardCharsets.UTF_8));
+                } catch (IOException erreur) {
+                    return Optional.empty();
+                }
+            }
+        }
+        return Optional.empty();
     }
 }

@@ -1,0 +1,13 @@
+-- Exemple 4 : un scénario de communication avec une panne de satellite
+
+satellite s1 en (100, 200) { portee = 60 ; debit = 2 }
+deplacement s1 orbital(vitesse = 3)
+
+balise b1 en (150, -40) { memoire = 15 ; vitesseVerticale = 4 }
+equiper b1 temperature()
+
+attendre 200
+arreter s1            -- panne : le satellite est hors service
+attendre 100
+demarrer s1           -- remise en service
+remonter b1           -- remontée forcée

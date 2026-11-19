@@ -8,6 +8,7 @@ import satellitesbalises.modele.entite.Balise;
 import satellitesbalises.modele.evenement.EvenementCommandeIgnoree;
 import satellitesbalises.modele.simulation.Simulation;
 
+/** Change la condition de remontée d'une balise (EX-5.2). Balise inconnue : commande ignorée et signalée. */
 public class CommandeChangerConditionRemontee implements CommandeSimulation {
 
     private static final long serialVersionUID = 1L;

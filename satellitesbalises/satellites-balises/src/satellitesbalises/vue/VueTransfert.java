@@ -12,6 +12,11 @@ import nicellipse.component.NiSpace;
 import satellitesbalises.modele.communication.Transfert;
 import satellitesbalises.modele.monde.Position;
 
+/**
+ * Un transfert en cours (EX-6.10) : des cercles orange concentriques autour du satellite
+ * et autour de la balise, comme dans la démonstration du sujet. Le pourcentage est dans le
+ * panneau d'observation.
+ */
 public final class VueTransfert {
 
     private static final Color ORANGE = new Color(255, 170, 0);
@@ -33,6 +38,7 @@ public final class VueTransfert {
         mettreAJour();
     }
 
+    /** Ajoute les cercles à l'espace, au-dessus du décor. */
     void afficherDans(NiSpace espace) {
         ondesSatellite.forEach(onde -> espace.add(onde, 0));
         ondesBalise.forEach(onde -> espace.add(onde, 0));
@@ -43,6 +49,7 @@ public final class VueTransfert {
         ondesBalise.forEach(espace::remove);
     }
 
+    /** Recentre les cercles sur le satellite et la balise, qui ont pu bouger. */
     public void mettreAJour() {
         centrer(ondesSatellite, transfert.getSatellite().getPosition());
         centrer(ondesBalise, transfert.getBalise().getPosition());

@@ -1,7 +1,8 @@
 /**
- * La représentation abstraite des programmes (classes immuables qui redéfinissent equals), sans dépendance à ANTLR ni au modèle.
+ * La représentation abstraite des programmes : l'arbre que produit l'analyse du texte et que lit
+ * l'interpréteur (étape 7a, EX-7.1).
  *
- * <p>Classes prévues : Programme, Instruction et ses 9 implémentations, AppelComportement, Propriete, Valeur.</p>
- * <p>Étape(s) du plan : 7a. Voir le dossier de conception.</p>
+ * <p>Classes de valeur, immuables, qui redéfinissent {@code equals} : deux arbres identiques sont égaux.
+ * Ce paquetage ne dépend ni d'ANTLR ni du modèle.</p>
  */
 package satellitesbalises.langage.arbre;

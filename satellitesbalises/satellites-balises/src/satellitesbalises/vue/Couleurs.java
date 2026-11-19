@@ -3,6 +3,7 @@ package satellitesbalises.vue;
 import java.awt.Color;
 import java.util.Map;
 
+/** Traduit le nom d'une couleur, tel qu'il est écrit dans une apparence, en couleur d'affichage. */
 final class Couleurs {
 
     private static final Map<String, Color> PAR_NOM = Map.ofEntries(
@@ -21,6 +22,7 @@ final class Couleurs {
         // Classe utilitaire : pas d'instance.
     }
 
+    /** La couleur de ce nom, ou noir si le nom est inconnu. */
     static Color depuisNom(String nom) {
         return PAR_NOM.getOrDefault(nom, Color.BLACK);
     }

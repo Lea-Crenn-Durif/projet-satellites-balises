@@ -8,6 +8,7 @@ import satellitesbalises.modele.evenement.EvenementCommandeIgnoree;
 import satellitesbalises.modele.evenement.EvenementStatutModifie;
 import satellitesbalises.modele.simulation.Simulation;
 
+/** Arrête ou redémarre un satellite et l'annonce (EX-6.1). Satellite inconnu : commande ignorée et signalée. */
 public class CommandeChangerStatut implements CommandeSimulation {
 
     private static final long serialVersionUID = 1L;
@@ -15,6 +16,7 @@ public class CommandeChangerStatut implements CommandeSimulation {
     private final String nomSatellite;
     private final boolean enService;
 
+    /** @param enService vrai pour démarrer, faux pour arrêter */
     public CommandeChangerStatut(String nomSatellite, boolean enService) {
         this.nomSatellite = Objects.requireNonNull(nomSatellite, "nomSatellite");
         this.enService = enService;

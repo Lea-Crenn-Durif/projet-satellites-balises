@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
 import eventHandler.EventHandler;
+import satellitesbalises.langage.DossierExemples;
 import satellitesbalises.langage.interpretation.InterpreteurProgramme;
 import satellitesbalises.langage.interpretation.RapportExecution;
 import satellitesbalises.modele.creation.CataloguesParDefaut;
@@ -31,7 +32,7 @@ class ExemplesTest {
     @Test
     void tousLesExemples_analysesInterpretesEtExecutes() throws IOException {
         List<Path> fichiers;
-        try (Stream<Path> contenu = Files.list(Path.of("exemples"))) {
+        try (Stream<Path> contenu = Files.list(DossierExemples.chemin())) {
             fichiers = contenu.filter(f -> f.toString().endsWith(".sb")).sorted().toList();
         }
         assertTrue(fichiers.size() >= 4, "au moins quatre exemples attendus");

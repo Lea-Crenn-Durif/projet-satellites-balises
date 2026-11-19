@@ -1,7 +1,5 @@
 /**
- * L'interprétation : l'arbre devient des commandes datées, tout ou rien.
- *
- * <p>Classes prévues : VisiteurInstruction, InterpreteurProgramme, TableDesNoms, RapportExecution, ErreurProgramme.</p>
- * <p>Étape(s) du plan : 7b. Voir le dossier de conception.</p>
+ * L'interprétation (étape 7b) : l'arbre d'un programme devient des commandes datées, planifiées
+ * dans la simulation seulement si tout le programme est correct.
  */
 package satellitesbalises.langage.interpretation;

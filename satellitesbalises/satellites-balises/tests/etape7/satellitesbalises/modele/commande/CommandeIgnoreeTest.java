@@ -13,6 +13,8 @@ import satellitesbalises.modele.creation.FabriqueEntites;
 import satellitesbalises.modele.evenement.EcouteurCommandes;
 import satellitesbalises.modele.evenement.EvenementCommandeIgnoree;
 import satellitesbalises.modele.mesure.EnvironnementSimule;
+import satellitesbalises.modele.mesure.Grandeur;
+import satellitesbalises.modele.mesure.InstrumentSimple;
 import satellitesbalises.modele.monde.GeometrieMonde;
 import satellitesbalises.modele.monde.Monde;
 import satellitesbalises.modele.monde.Position;
@@ -54,7 +56,7 @@ class CommandeIgnoreeTest {
         ecouter();
         simulation.planifier(new CommandeSupprimer("x"), 1);
         simulation.planifier(new CommandeForcerRemontee("x"), 1);
-        simulation.planifier(new CommandeEquiper("x", null), 1);
+        simulation.planifier(new CommandeEquiper("x", new InstrumentSimple("temperature", Grandeur.TEMPERATURE)), 1);
         simulation.planifier(new CommandeChangerStatut("x", true), 1);
 
         simulation.avancerDUnPas();

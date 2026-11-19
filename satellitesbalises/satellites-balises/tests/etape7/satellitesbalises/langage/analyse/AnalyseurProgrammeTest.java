@@ -10,11 +10,11 @@ import static satellitesbalises.langage.arbre.ProgrammesExemples.texte;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import satellitesbalises.langage.DossierExemples;
 import satellitesbalises.langage.arbre.Aspect;
 import satellitesbalises.langage.arbre.ErreurProgramme;
 import satellitesbalises.langage.arbre.Instruction;
@@ -109,14 +109,14 @@ class AnalyseurProgrammeTest {
 
     @Test
     void analyser_fichierExemple1_memeArbreQueLaVersionJava() throws IOException {
-        String texte = Files.readString(Path.of("exemples", "01-construction.sb"), StandardCharsets.UTF_8);
+        String texte = Files.readString(DossierExemples.fichier("01-construction.sb"), StandardCharsets.UTF_8);
 
         assertEquals(ProgrammesExemples.construction(), analyseur.analyser(texte));
     }
 
     @Test
     void analyser_fichierExemple4_memeArbreQueLaVersionJava() throws IOException {
-        String texte = Files.readString(Path.of("exemples", "04-communication.sb"), StandardCharsets.UTF_8);
+        String texte = Files.readString(DossierExemples.fichier("04-communication.sb"), StandardCharsets.UTF_8);
 
         assertEquals(ProgrammesExemples.communication(), analyseur.analyser(texte));
     }

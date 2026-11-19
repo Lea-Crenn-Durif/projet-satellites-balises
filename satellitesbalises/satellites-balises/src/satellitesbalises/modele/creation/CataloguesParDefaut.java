@@ -14,6 +14,12 @@ import satellitesbalises.modele.mesure.Instrument;
 import satellitesbalises.modele.mesure.InstrumentCourantometre;
 import satellitesbalises.modele.mesure.InstrumentSimple;
 
+/**
+ * Le seul endroit qui connaît toutes les variantes du projet (EX-2.7, EX-2.8).
+ * Nouvelle variante = une classe + une ligne ici.
+ *
+ * <p>Un paramètre absent prend la valeur par défaut indiquée ci-dessous.</p>
+ */
 public final class CataloguesParDefaut {
 
     private CataloguesParDefaut() {

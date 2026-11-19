@@ -3,6 +3,10 @@ package satellitesbalises.modele.activite;
 import satellitesbalises.modele.entite.Balise;
 import satellitesbalises.modele.simulation.ContexteSimulation;
 
+/**
+ * La balise flotte à la surface, sans bouger ni mesurer, en attendant un satellite (EX-5.5).
+ * C'est la seule activité où un transfert peut commencer.
+ */
 public class ActiviteAttente extends ActiviteAvecProfondeur {
 
     private static final long serialVersionUID = 1L;

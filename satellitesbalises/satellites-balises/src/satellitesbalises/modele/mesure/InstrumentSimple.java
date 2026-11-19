@@ -6,6 +6,7 @@ import java.util.Objects;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.simulation.ContexteSimulation;
 
+/** Un instrument qui mesure une seule grandeur : thermomètre, salinomètre, turbidimètre. */
 public class InstrumentSimple implements Instrument {
 
     private static final long serialVersionUID = 1L;

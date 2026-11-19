@@ -3,6 +3,7 @@ package satellitesbalises.modele.evenement;
 import eventHandler.AbstractEvent;
 import satellitesbalises.modele.entite.Entite;
 
+/** Publié quand une entité est retirée du monde. */
 public class EvenementEntiteSupprimee extends AbstractEvent {
 
     private static final long serialVersionUID = 1L;

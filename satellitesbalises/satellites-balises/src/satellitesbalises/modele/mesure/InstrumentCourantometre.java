@@ -5,6 +5,7 @@ import java.util.List;
 import satellitesbalises.modele.monde.Position;
 import satellitesbalises.modele.simulation.ContexteSimulation;
 
+/** Mesure le courant marin : sa vitesse et sa direction, dans une même mesure. */
 public class InstrumentCourantometre implements Instrument {
 
     private static final long serialVersionUID = 1L;

@@ -4,6 +4,10 @@ import java.util.Objects;
 
 import satellitesbalises.modele.entite.Balise;
 
+/**
+ * Remonter dès que l'une des deux conditions est remplie (patron Composite, EX-5.2).
+ * Exemple : mémoire pleine OU 150 pas de collecte.
+ */
 public class ConditionOu implements ConditionRemontee {
 
     private static final long serialVersionUID = 1L;
