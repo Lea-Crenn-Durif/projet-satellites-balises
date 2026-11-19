@@ -59,10 +59,10 @@ public final class Application {
                 .avecDeplacement(new DeplacementHorizontal(2))
                 .equipeeDe(new InstrumentSimple("temperature", Grandeur.TEMPERATURE),
                         new InstrumentSimple("salinite", Grandeur.SALINITE)).construire());
-        simulation.ajouter(fabrique.nouvelleBalise("b2").en(new Position(300, -180)).avecMemoire(30).avecVitesseVerticale(4)
+        simulation.ajouter(fabrique.nouvelleBalise("b2").en(new Position(300, -180)).avecMemoire(10).avecVitesseVerticale(4)
                 .avecDeplacement(new DeplacementVertical(2, 40, 260))
                 .equipeeDe(new InstrumentCourantometre()).construire());
-        simulation.ajouter(fabrique.nouvelleBalise("b3").en(new Position(520, -120)).avecMemoire(200)
+        simulation.ajouter(fabrique.nouvelleBalise("b3").en(new Position(520, -120)).avecMemoire(20)
                 .avecDeplacement(new DeplacementSinusoidal(1, 40, 120, 150))
                 .equipeeDe(new InstrumentSimple("turbidite", Grandeur.TURBIDITE),
                         new InstrumentSimple("temperature", Grandeur.TEMPERATURE))

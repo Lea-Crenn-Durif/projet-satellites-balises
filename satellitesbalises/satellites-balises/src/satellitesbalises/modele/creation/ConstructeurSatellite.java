@@ -14,7 +14,7 @@ public class ConstructeurSatellite {
     private Position position;
     private Deplacement deplacement = new DeplacementImmobile();
     private double portee = 30;
-    private int debit = 2;
+    private int debit = 5;
     private Apparence apparence = Apparence.parDefaut();
 
     ConstructeurSatellite(String nom, FabriqueEntites fabrique) {
